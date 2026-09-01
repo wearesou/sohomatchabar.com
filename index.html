@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SOHO Cafetería & Matcha Bar | Sistema Integral</title>
+  <title>SOHO Cafetería & Matcha Bar | Sistema Integral Full-Stack</title>
   <style>
     /* ==========================================================================
-       PALETA ROJA & DESIGN SYSTEM (SOHO CAFETERÍA)
+       DESIGN SYSTEM & PALETA OFICIAL SOHO
        ========================================================================== */
     :root {
       --red: #C0392B;
@@ -16,7 +16,7 @@
       --redPale: #FDEDEC;
       --redMid: #F1948A;
       --white: #FFFFFF;
-      --cream: #FEF9F9;
+      --cream: #FAF9F7;
       --charcoal: #1A1A1A;
       --gray: #6B6B6B;
       --grayLight: #EDEDED;
@@ -27,10 +27,9 @@
       --green: #27AE60;
       --greenPale: #D1FAE5;
       --greenDark: #065F46;
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-full: 9999px;
+      --purple: #8E44AD;
+      --purplePale: #F4ECF7;
+      --purpleDark: #5B2C6F;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
@@ -59,13 +58,14 @@
     }
     .text-red { color: var(--red); }
     .text-gold { color: var(--gold); }
+    .text-green { color: var(--green); }
     .text-gray { color: var(--gray); }
     .text-sm { font-size: 0.875rem; }
     .text-xs { font-size: 0.75rem; }
     .font-bold { font-weight: 700; }
     .font-black { font-weight: 900; }
 
-    /* TOP BAR APP SHELL */
+    /* SHELL & LAYOUT */
     .app-shell {
       max-width: 440px;
       margin: 0 auto;
@@ -84,32 +84,40 @@
       }
     }
 
-    /* TOP SWITCHER (CLIENT vs ADMIN) */
+    /* TOP SWITCHER (CLIENT vs ADMIN/ROLE) */
     .top-mode-bar {
       background: var(--redDeep);
       display: flex;
-      padding: 6px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
       gap: 6px;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
+    .top-mode-buttons {
+      display: flex;
+      gap: 5px;
+      flex: 1;
+    }
     .top-mode-btn {
       flex: 1;
       border: none;
       border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 12px;
+      padding: 7px 8px;
+      font-size: 11px;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
       color: var(--white);
       background: transparent;
       transition: all 0.15s ease;
+      white-space: nowrap;
     }
     .top-mode-btn.active {
       background: var(--red);
@@ -121,19 +129,83 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
 
-    /* BADGE COMPONENT */
+    /* BADGES & LEVEL TAGS */
     .soho-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       border-radius: 4px;
-      padding: 3px 9px;
+      padding: 3px 8px;
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     .soho-badge.badge-red { background: var(--red); color: var(--white); }
     .soho-badge.badge-white { background: var(--white); color: var(--red); }
+    .soho-badge.badge-gold { background: var(--gold); color: var(--charcoal); }
     .soho-badge.badge-small { padding: 2px 6px; font-size: 9px; }
+
+    .tag-level {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tag-level-green { background: var(--greenPale); color: var(--greenDark); border: 1px solid #10B981; }
+    .tag-level-gold { background: var(--goldLight); color: #92400E; border: 1px solid #F59E0B; }
+    .tag-level-red { background: var(--redPale); color: var(--redDark); border: 1px solid var(--redMid); }
+    .tag-level-purple { background: var(--purplePale); color: var(--purpleDark); border: 1px solid #A855F7; }
+
+    /* STUDENT & STAFF AVATARS */
+    .student-avatar-wrap {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+    .student-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--grayBorder);
+    }
+    .student-avatar-empty {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #FEE2E2;
+      border: 2px dashed var(--danger);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--danger);
+    }
+    .avatar-missing-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      background: #EF4444;
+      color: white;
+      font-size: 8px;
+      font-weight: 900;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid white;
+    }
 
     /* CHIP COMPONENT */
     .soho-chip {
@@ -164,7 +236,7 @@
       border: 1px solid var(--gold);
       border-left: 3.5px solid var(--gold);
       border-radius: 8px;
-      padding: 9px 12px;
+      padding: 8px 12px;
       margin-top: 6px;
       margin-bottom: 8px;
     }
@@ -173,12 +245,12 @@
       font-weight: 800;
       letter-spacing: 1px;
       color: var(--gold);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
     .tip-card-body {
       font-size: 12px;
       color: #5D4037;
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
     /* BUTTONS */
@@ -197,16 +269,10 @@
       text-decoration: none;
       user-select: none;
     }
-    .btn-primary {
-      background: var(--red);
-      color: var(--white);
-    }
+    .btn-primary { background: var(--red); color: var(--white); }
     .btn-primary:active { transform: scale(0.98); }
-    .btn-secondary {
-      background: var(--white);
-      color: var(--charcoal);
-      border: 1.5px solid var(--grayBorder);
-    }
+    .btn-secondary { background: var(--white); color: var(--charcoal); border: 1.5px solid var(--grayBorder); }
+    .btn-gold { background: var(--gold); color: var(--charcoal); }
     .btn-sm { padding: 6px 14px; font-size: 12px; border-radius: 20px; }
     .btn-block { width: 100%; }
 
@@ -215,23 +281,21 @@
       width: 100%;
       border: 1.5px solid var(--grayBorder);
       border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 14px;
+      padding: 10px 14px;
+      font-size: 13px;
       color: var(--charcoal);
       background: var(--white);
       outline: none;
       box-sizing: border-box;
       font-family: inherit;
     }
-    .form-control:focus, .form-select:focus {
-      border-color: var(--red);
-    }
+    .form-control:focus, .form-select:focus { border-color: var(--red); }
     .form-label {
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 1px;
       color: var(--gray);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       display: block;
       text-transform: uppercase;
     }
@@ -258,9 +322,7 @@
       flex-direction: column;
       min-height: calc(100vh - 44px);
     }
-    #admin-app.active {
-      display: flex;
-    }
+    #admin-app.active { display: flex; }
 
     @media (min-width: 992px) {
       .admin-layout-container {
@@ -321,15 +383,10 @@
       background: var(--redPale);
     }
 
-    .admin-panel {
-      display: none;
-    }
-    .admin-panel.active {
-      display: block;
-      animation: fadeIn 0.2s ease;
-    }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; animation: fadeIn 0.2s ease; }
 
-    /* CARD COMPONENT */
+    /* CARDS & KANBAN */
     .card {
       background: var(--white);
       border-radius: 14px;
@@ -337,6 +394,20 @@
       margin-bottom: 12px;
       border: 1px solid var(--grayBorder);
       box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .kanban-col {
+      background: #F9FAFB;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--grayBorder);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     /* TABLES */
@@ -420,15 +491,12 @@
       justify-content: center;
       padding: 16px;
     }
-    .modal-backdrop.active {
-      display: flex;
-      animation: fadeIn 0.2s ease;
-    }
+    .modal-backdrop.active { display: flex; animation: fadeIn 0.2s ease; }
     .modal-box {
       background: var(--white);
       border-radius: 16px;
       width: 100%;
-      max-width: 500px;
+      max-width: 540px;
       max-height: 90vh;
       overflow-y: auto;
       box-shadow: 0 20px 30px rgba(0,0,0,0.25);
@@ -447,67 +515,78 @@
 
     <!-- TOP MODE SWITCHER BAR -->
     <header class="top-mode-bar">
-      <button id="mode-btn-client" class="top-mode-btn active" onclick="switchMainMode('client')">
-        <span>📱</span> <span>Cliente</span>
-      </button>
-      <button id="mode-btn-admin" class="top-mode-btn" onclick="switchMainMode('admin')">
-        <span>⚙️</span> <span>Admin</span>
-        <span id="top-admin-badge" class="soho-badge badge-white badge-small" style="display:none;">0</span>
-      </button>
+      <div class="top-mode-buttons">
+        <button id="mode-btn-client" class="top-mode-btn active" onclick="switchMainMode('client')">
+          <span>👤</span> <span>Cliente</span>
+        </button>
+        <button id="mode-btn-admin" class="top-mode-btn" onclick="switchMainMode('admin')">
+          <span>⚙️</span> <span>Admin</span>
+          <span id="top-admin-badge" class="soho-badge badge-white badge-small" style="display:none;">0</span>
+        </button>
+      </div>
+      <!-- Role selector (Simulated Staff Role) -->
+      <select id="staff-role-selector" onchange="changeStaffRole(this.value)" style="background:rgba(255,255,255,0.18); color:white; border:none; border-radius:6px; font-size:10px; font-weight:800; padding:4px 6px; outline:none; cursor:pointer;">
+        <option value="owner" style="color:black;">👑 Rol: Owner</option>
+        <option value="manager" style="color:black;">💼 Rol: Manager</option>
+        <option value="barista" style="color:black;">🍵 Rol: Barista</option>
+        <option value="cashier" style="color:black;">💳 Rol: Cashier</option>
+      </select>
     </header>
 
     <!-- ==========================================================================
-         CLIENT SIDE APPLICATION (Home -> Menu -> Product -> Cart -> Pickup -> Payment -> Tracking)
+         CLIENT SIDE APPLICATION
          ========================================================================== -->
     <main id="client-app" style="display:flex; flex-direction:column; flex:1;">
       
       <!-- SCREEN 1: HOME -->
       <div id="screen-home" class="client-screen active">
-        <!-- Hero -->
-        <div style="background: linear-gradient(150deg, var(--redDeep) 0%, var(--red) 100%); padding: 48px 24px 36px; position: relative; overflow: hidden;">
-          <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.06);"></div>
-          <div style="position: absolute; top: 30px; right: 20px; width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.04);"></div>
+        <!-- Hero banner -->
+        <div style="background: linear-gradient(150deg, var(--redDeep) 0%, var(--red) 100%); padding: 44px 20px 32px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,0.06);"></div>
           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div style="font-size: 10px; font-weight: 800; letter-spacing: 3px; color: rgba(255,255,255,0.6); margin-bottom: 10px;">SOHO CAFETERÍA</div>
-            <button onclick="openClientScreen('profile')" style="background:rgba(255,255,255,0.2); border:none; border-radius:20px; padding:4px 10px; color:white; font-size:11px; font-weight:800; cursor:pointer;">👤 Perfil</button>
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 3px; color: rgba(255,255,255,0.6); margin-bottom: 8px;">SOHO CAFETERÍA</div>
+            <button onclick="openClientScreen('profile')" style="background:rgba(255,255,255,0.2); border:none; border-radius:20px; padding:4px 10px; color:white; font-size:11px; font-weight:800; cursor:pointer;" id="home-profile-btn">👤 Mi Perfil</button>
           </div>
-          <div style="font-size: 38px; font-weight: 900; lineHeight: 1.1; color: var(--white); margin-bottom: 8px;">Matcha<br>Season 🍵</div>
-          <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 26px;">Uji ceremonial · ahora con Strawberry Foam</div>
-          <button onclick="openClientScreen('menu')" class="btn" style="background: var(--white); color: var(--red); padding: 12px 28px;">Ordenar ahora →</button>
+          <div style="font-size: 34px; font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 6px;">Matcha<br>Season 🍵</div>
+          <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 22px;">Uji ceremonial · ahora con Strawberry Foam & Cold Brew</div>
+          <div style="display:flex; gap:8px;">
+            <button onclick="openClientScreen('menu')" class="btn" style="background: var(--white); color: var(--red); padding: 10px 22px; font-size:13px;">Ordenar Barra →</button>
+            <button onclick="openAuthModal()" class="btn" style="background: rgba(255,255,255,0.2); color: var(--white); padding: 10px 16px; border:1px solid rgba(255,255,255,0.4); font-size:13px;" id="home-auth-btn">📱 Iniciar Sesión (OTP)</button>
+          </div>
         </div>
 
-        <!-- Loyalty Card -->
+        <!-- SOHO CLUB Loyalty Card -->
         <div style="margin: 14px 14px 0; background: var(--redPale); border-radius: 16px; padding: 14px 18px; border: 1px solid var(--redMid); display: flex; justify-content: space-between; align-items: center; cursor:pointer;" onclick="openClientScreen('profile')">
           <div>
             <div style="font-size: 9px; font-weight: 800; letter-spacing: 1.5px; color: var(--red); margin-bottom: 2px;">SOHO CLUB</div>
-            <div style="font-size: 26px; font-weight: 900; color: var(--charcoal);"><span id="client-points-display">1,240</span><span style="font-size: 13px; font-weight: 500; color: var(--gray);"> pts</span></div>
-            <div style="font-size: 11px; color: var(--gray);" id="client-tier-desc">80 pts para tu próxima recompensa · Nivel Silver</div>
+            <div style="font-size: 24px; font-weight: 900; color: var(--charcoal);"><span id="client-points-display">1,240</span><span style="font-size: 13px; font-weight: 500; color: var(--gray);"> pts</span></div>
+            <div style="font-size: 11px; color: var(--gray);" id="client-tier-desc">Nivel <strong class="text-gold">Silver</strong> · +1 pt por cada $10 gastados</div>
           </div>
           <div style="font-size: 36px;">⭐</div>
         </div>
 
         <!-- Categories -->
-        <div style="padding: 16px 14px 8px;">
-          <div style="font-weight: 800; font-size: 14px; margin-bottom: 10px; color: var(--charcoal);">¿Qué se te antoja?</div>
+        <div style="padding: 16px 14px 6px;">
+          <div style="font-weight: 800; font-size: 14px; margin-bottom: 10px; color: var(--charcoal);">¿Qué se te antoja hoy?</div>
           <div style="display: flex; gap: 8px;">
-            <button onclick="selectCategoryAndOpenMenu('Matcha')" style="flex: 1; background: var(--white); border: 1.5px solid var(--grayBorder); border-radius: 14px; padding: 14px 6px; cursor: pointer; text-align: center;">
-              <div style="font-size: 26px;">🍵</div>
-              <div style="font-size: 11px; font-weight: 700; color: var(--charcoal); margin-top: 4px;">Matcha</div>
+            <button onclick="selectCategoryAndOpenMenu('Matcha')" style="flex: 1; background: var(--white); border: 1.5px solid var(--grayBorder); border-radius: 14px; padding: 12px 4px; cursor: pointer; text-align: center;">
+              <div style="font-size: 24px;">🍵</div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--charcoal); margin-top: 3px;">Matcha</div>
             </button>
-            <button onclick="selectCategoryAndOpenMenu('Coffee')" style="flex: 1; background: var(--white); border: 1.5px solid var(--grayBorder); border-radius: 14px; padding: 14px 6px; cursor: pointer; text-align: center;">
-              <div style="font-size: 26px;">☕</div>
-              <div style="font-size: 11px; font-weight: 700; color: var(--charcoal); margin-top: 4px;">Coffee</div>
+            <button onclick="selectCategoryAndOpenMenu('Coffee')" style="flex: 1; background: var(--white); border: 1.5px solid var(--grayBorder); border-radius: 14px; padding: 12px 4px; cursor: pointer; text-align: center;">
+              <div style="font-size: 24px;">☕</div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--charcoal); margin-top: 3px;">Coffee</div>
             </button>
-            <button onclick="selectCategoryAndOpenMenu('Extras')" style="flex: 1; background: var(--white); border: 1.5px solid var(--grayBorder); border-radius: 14px; padding: 14px 6px; cursor: pointer; text-align: center;">
-              <div style="font-size: 26px;">🥐</div>
-              <div style="font-size: 11px; font-weight: 700; color: var(--charcoal); margin-top: 4px;">Extras</div>
+            <button onclick="selectCategoryAndOpenMenu('Extras')" style="flex: 1; background: var(--white); border: 1.5px solid var(--grayBorder); border-radius: 14px; padding: 12px 4px; cursor: pointer; text-align: center;">
+              <div style="font-size: 24px;">🥐</div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--charcoal); margin-top: 3px;">Extras</div>
             </button>
           </div>
         </div>
 
         <!-- Best Sellers -->
         <div style="padding: 10px 14px 28px;">
-          <div style="font-weight: 800; font-size: 14px; margin-bottom: 10px; color: var(--charcoal);">Best sellers</div>
+          <div style="font-weight: 800; font-size: 14px; margin-bottom: 10px; color: var(--charcoal);">Favoritos de la barra</div>
           <div id="home-bestsellers-list"></div>
         </div>
       </div>
@@ -515,7 +594,7 @@
       <!-- SCREEN 2: MENU -->
       <div id="screen-menu" class="client-screen">
         <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px 14px 0;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
             <button onclick="openClientScreen('home')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 12px; color: var(--white); cursor: pointer; font-size: 13px;">← Inicio</button>
             <button onclick="openClientScreen('cart')" style="position: relative; background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 14px; color: var(--white); cursor: pointer; font-size: 18px;">
               🛒
@@ -541,46 +620,46 @@
 
       <!-- SCREEN 3: PRODUCT CUSTOMIZATION -->
       <div id="screen-product" class="client-screen">
-        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); height: 130px; display: flex; align-items: center; justify-content: center; position: relative; font-size: 72px;">
-          <button onclick="openClientScreen('menu')" style="position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 12px; color: var(--white); cursor: pointer; font-size: 13px;">← Menú</button>
-          <div id="prod-modal-badge" style="position: absolute; top: 14px; right: 14px;"></div>
+        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); height: 120px; display: flex; align-items: center; justify-content: center; position: relative; font-size: 64px;">
+          <button onclick="openClientScreen('menu')" style="position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 12px; color: var(--white); cursor: pointer; font-size: 13px;">← Menú</button>
+          <div id="prod-modal-badge" style="position: absolute; top: 12px; right: 12px;"></div>
           <span id="prod-modal-emoji">🍵</span>
         </div>
 
-        <div style="padding: 18px 16px; flex: 1; overflow-y: auto;">
-          <div style="font-weight: 900; font-size: 22px; color: var(--charcoal);" id="prod-modal-title">Iced Matcha Latte</div>
-          <div style="font-size: 13px; color: var(--gray); margin-top: 4px; margin-bottom: 14px; line-height: 1.5;" id="prod-modal-desc">Ceremonial Uji matcha con leche de tu elección, sobre hielo.</div>
+        <div style="padding: 16px; flex: 1; overflow-y: auto;">
+          <div style="font-weight: 900; font-size: 20px; color: var(--charcoal);" id="prod-modal-title">Iced Matcha Latte</div>
+          <div style="font-size: 12px; color: var(--gray); margin-top: 3px; margin-bottom: 12px; line-height: 1.4;" id="prod-modal-desc">Ceremonial Uji matcha con leche de tu elección, sobre hielo.</div>
           
           <!-- Barista Tip Card -->
           <div id="prod-modal-tip-container"></div>
 
           <!-- Sizes -->
-          <div id="prod-sizes-section" style="margin-bottom: 18px;">
-            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 8px;">TAMAÑO</div>
-            <div style="display: flex; gap: 7px; flex-wrap: wrap;" id="prod-sizes-chips"></div>
+          <div id="prod-sizes-section" style="margin-bottom: 16px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 6px;">TAMAÑO</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="prod-sizes-chips"></div>
           </div>
 
           <!-- Milks -->
-          <div id="prod-milks-section" style="margin-bottom: 18px;">
-            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 8px;">LECHE</div>
-            <div style="display: flex; gap: 7px; flex-wrap: wrap;" id="prod-milks-chips"></div>
+          <div id="prod-milks-section" style="margin-bottom: 16px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 6px;">LECHE</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="prod-milks-chips"></div>
           </div>
 
           <!-- Sweetness -->
-          <div id="prod-sweetness-section" style="margin-bottom: 18px;">
-            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 8px;">SWEETNESS</div>
-            <div style="display: flex; gap: 7px; flex-wrap: wrap;" id="prod-sweetness-chips"></div>
+          <div id="prod-sweetness-section" style="margin-bottom: 16px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 6px;">SWEETNESS</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="prod-sweetness-chips"></div>
           </div>
 
           <!-- Addons -->
-          <div id="prod-addons-section" style="margin-bottom: 20px;">
-            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 8px;">ADD-ONS</div>
-            <div style="display: flex; gap: 7px; flex-wrap: wrap;" id="prod-addons-chips"></div>
+          <div id="prod-addons-section" style="margin-bottom: 18px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.2px; color: var(--gray); margin-bottom: 6px;">ADD-ONS</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="prod-addons-chips"></div>
           </div>
         </div>
 
-        <div style="padding: 12px 16px 22px; border-top: 1px solid var(--grayBorder); background: var(--white);">
-          <button onclick="addProductToCart()" class="btn btn-primary btn-block" style="padding: 15px; font-size: 15px; display: flex; justify-content: space-between;">
+        <div style="padding: 12px 16px 20px; border-top: 1px solid var(--grayBorder); background: var(--white);">
+          <button onclick="addProductToCart()" class="btn btn-primary btn-block" style="padding: 14px; font-size: 14px; display: flex; justify-content: space-between;">
             <span>Agregar al carrito</span>
             <span id="prod-modal-total-btn">$0</span>
           </button>
@@ -589,17 +668,17 @@
 
       <!-- SCREEN 4: CART -->
       <div id="screen-cart" class="client-screen">
-        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px 14px 14px; display: flex; align-items: center; gap: 10px;">
+        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px; display: flex; align-items: center; gap: 10px;">
           <button onclick="openClientScreen('menu')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 12px; color: var(--white); cursor: pointer; font-size: 13px;">←</button>
           <div style="font-weight: 900; font-size: 16px; color: var(--white);">Tu orden 🛒</div>
         </div>
 
         <div style="padding: 14px; flex: 1; overflow-y: auto;" id="cart-content-container">
-          <!-- Populated cart items & totals -->
+          <!-- Cart items & tip & total -->
         </div>
 
         <div id="cart-footer-checkout-btn" style="padding: 0 14px 22px;">
-          <button onclick="openClientScreen('pickup')" class="btn btn-primary btn-block" style="padding: 15px; font-size: 15px;">
+          <button onclick="openClientScreen('pickup')" class="btn btn-primary btn-block" style="padding: 14px; font-size: 14px;">
             Elegir hora de pick up ⏰
           </button>
         </div>
@@ -607,14 +686,14 @@
 
       <!-- SCREEN 5: PICKUP TIME SELECTOR -->
       <div id="screen-pickup" class="client-screen">
-        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px 14px 14px; display: flex; align-items: center; gap: 10px;">
+        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px; display: flex; align-items: center; gap: 10px;">
           <button onclick="openClientScreen('cart')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 12px; color: var(--white); cursor: pointer; font-size: 13px;">←</button>
-          <div style="font-weight: 900; font-size: 16px; color: var(--white);">¿Cuándo recoges? ⏰</div>
+          <div style="font-weight: 900; font-size: 16px; color: var(--white);">Horario de Pick Up ⏰</div>
         </div>
 
         <div style="padding: 14px; flex: 1; overflow-y: auto;">
           <!-- Toggle ASAP vs Scheduled -->
-          <div style="display: flex; gap: 8px; margin-bottom: 20px; background: var(--grayLight); border-radius: 14px; padding: 5px;">
+          <div style="display: flex; gap: 8px; margin-bottom: 18px; background: var(--grayLight); border-radius: 14px; padding: 4px;">
             <button id="pickup-btn-asap" onclick="setPickupMode('asap')" style="flex: 1; border: none; border-radius: 10px; background: var(--white); color: var(--red); padding: 10px 6px; cursor: pointer; box-shadow: 0 1px 6px rgba(0,0,0,0.1);">
               <div style="font-weight: 800; font-size: 13px;">⚡ ASAP</div>
               <div style="font-size: 10px; color: var(--gray); margin-top: 1px;">~10 min</div>
@@ -626,34 +705,34 @@
           </div>
 
           <!-- ASAP Mode View -->
-          <div id="pickup-view-asap" style="background: var(--white); border-radius: 16px; padding: 28px 20px; text-align: center; border: 1px solid var(--grayBorder);">
-            <div style="font-size: 52px;">⚡</div>
-            <div style="font-weight: 800; font-size: 18px; color: var(--charcoal); margin-top: 12px;">Lo antes posible</div>
-            <div style="font-size: 12px; color: var(--gray); margin-top: 6px;">Tu orden estará lista en aproximadamente</div>
-            <div style="font-weight: 900; font-size: 32px; color: var(--red); margin-top: 8px;">~10 min</div>
-            <div style="background: var(--redPale); border-radius: 10px; padding: 10px 16px; margin-top: 16px; font-size: 12px; color: var(--red); font-weight: 600;">
-              📍 Pick up en SOHO Cafetería & Matcha Bar
+          <div id="pickup-view-asap" style="background: var(--white); border-radius: 16px; padding: 24px 16px; text-align: center; border: 1px solid var(--grayBorder);">
+            <div style="font-size: 48px;">⚡</div>
+            <div style="font-weight: 800; font-size: 17px; color: var(--charcoal); margin-top: 10px;">Lo antes posible</div>
+            <div style="font-size: 12px; color: var(--gray); margin-top: 4px;">Tu orden estará lista en aproximadamente</div>
+            <div style="font-weight: 900; font-size: 30px; color: var(--red); margin-top: 6px;">~10 min</div>
+            <div style="background: var(--redPale); border-radius: 10px; padding: 8px 14px; margin-top: 14px; font-size: 11px; color: var(--red); font-weight: 700;">
+              📍 Pick up en SOHO Roma Norte
             </div>
           </div>
 
           <!-- Scheduled Mode View -->
           <div id="pickup-view-scheduled" style="display:none;">
-            <div style="font-size: 11px; color: var(--gray); margin-bottom: 14px;">Mín 10 min · Máx 24h · Horario 7AM–8PM</div>
-            <div id="pickup-time-error" style="display:none; background: #FEE2E2; color: var(--danger); border-radius: 10px; padding: 9px 12px; font-size: 12px; margin-bottom: 12px; font-weight: 600;"></div>
+            <div style="font-size: 11px; color: var(--gray); margin-bottom: 12px;">Mín 10 min · Máx 24h · Horario 7AM–8PM</div>
+            <div id="pickup-time-error" style="display:none; background: #FEE2E2; color: var(--danger); border-radius: 10px; padding: 8px 12px; font-size: 11px; margin-bottom: 10px; font-weight: 600;"></div>
             <div id="pickup-slots-container"></div>
           </div>
         </div>
 
         <div style="padding: 0 14px 22px; background: var(--white); border-top: 1px solid var(--grayBorder);">
-          <div id="pickup-selected-banner" style="display:none; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--redPale); border: 1px solid var(--redMid); border-radius: 10px; margin-top: 12px; margin-bottom: 10px;">
+          <div id="pickup-selected-banner" style="display:none; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--redPale); border: 1px solid var(--redMid); border-radius: 10px; margin-top: 10px; margin-bottom: 8px;">
             <div>
               <div style="font-size: 9px; font-weight: 800; letter-spacing: 1px; color: var(--red);">📅 PICK UP PROGRAMADO</div>
-              <div style="font-weight: 800; font-size: 14px; color: var(--charcoal); margin-top: 2px;" id="pickup-selected-text">Hoy 9:30 AM</div>
+              <div style="font-weight: 800; font-size: 13px; color: var(--charcoal);" id="pickup-selected-text">Hoy 9:30 AM</div>
             </div>
-            <button onclick="clearSelectedSlot()" style="background: none; border: none; color: var(--gray); cursor: pointer; font-size: 18px;">✕</button>
+            <button onclick="clearSelectedSlot()" style="background: none; border: none; color: var(--gray); cursor: pointer; font-size: 16px;">✕</button>
           </div>
 
-          <button id="pickup-confirm-btn" onclick="confirmPickupAndGoPayment()" class="btn btn-primary btn-block" style="padding: 15px; font-size: 14px; margin-top: 4px;">
+          <button id="pickup-confirm-btn" onclick="confirmPickupAndGoPayment()" class="btn btn-primary btn-block" style="padding: 14px; font-size: 14px; margin-top: 6px;">
             Confirmar — ASAP ⚡
           </button>
         </div>
@@ -661,17 +740,17 @@
 
       <!-- SCREEN 6: PAYMENT (STRIPE MOCK) -->
       <div id="screen-payment" class="client-screen">
-        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px 14px; display: flex; align-items: center; gap: 10px;">
+        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px; display: flex; align-items: center; gap: 10px;">
           <button onclick="openClientScreen('pickup')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 12px; color: var(--white); cursor: pointer; font-size: 13px;">←</button>
-          <div style="font-weight: 900; font-size: 16px; color: var(--white);">Pago 💳</div>
+          <div style="font-weight: 900; font-size: 16px; color: var(--white);">Pago Seguro 💳</div>
         </div>
 
         <div style="padding: 14px; flex: 1; overflow-y: auto;">
           <!-- Summary card -->
-          <div style="background: var(--redPale); border: 1px solid var(--redMid); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="background: var(--redPale); border: 1px solid var(--redMid); border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <div style="font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--red);">TOTAL A PAGAR</div>
-              <div style="font-size: 26px; font-weight: 900; color: var(--charcoal);" id="pay-summary-total">$0</div>
+              <div style="font-size: 9px; font-weight: 800; letter-spacing: 1px; color: var(--red);">TOTAL A PAGAR</div>
+              <div style="font-size: 24px; font-weight: 900; color: var(--charcoal);" id="pay-summary-total">$0</div>
               <div style="font-size: 11px; color: var(--red);" id="pay-summary-tip">incl. propina ❤️ $0</div>
             </div>
             <div style="text-align: right;">
@@ -680,93 +759,88 @@
             </div>
           </div>
 
-          <div style="font-weight: 800; font-size: 13px; color: var(--charcoal); margin-bottom: 10px;">Método de pago</div>
+          <div style="font-weight: 800; font-size: 13px; color: var(--charcoal); margin-bottom: 8px;">Método de pago</div>
 
           <!-- Express Buttons -->
-          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-            <button id="pay-method-apple" onclick="selectPayMethod('apple')" style="flex: 1; border: 2px solid var(--grayBorder); background: var(--white); border-radius: 12px; padding: 12px 8px; cursor: pointer; font-weight: 500; color: var(--charcoal); font-size: 13px;">
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <button id="pay-method-apple" onclick="selectPayMethod('apple')" style="flex: 1; border: 2px solid var(--grayBorder); background: var(--white); border-radius: 12px; padding: 10px 6px; cursor: pointer; font-weight: 600; color: var(--charcoal); font-size: 12px;">
               🍎 Apple Pay
             </button>
-            <button id="pay-method-google" onclick="selectPayMethod('google')" style="flex: 1; border: 2px solid var(--grayBorder); background: var(--white); border-radius: 12px; padding: 12px 8px; cursor: pointer; font-weight: 500; color: var(--charcoal); font-size: 13px;">
+            <button id="pay-method-google" onclick="selectPayMethod('google')" style="flex: 1; border: 2px solid var(--grayBorder); background: var(--white); border-radius: 12px; padding: 10px 6px; cursor: pointer; font-weight: 600; color: var(--charcoal); font-size: 12px;">
               🟢 Google Pay
             </button>
           </div>
 
           <!-- Wallet SOHO -->
-          <button id="pay-method-wallet" onclick="selectPayMethod('wallet')" style="width: 100%; border: 2px solid var(--grayBorder); background: var(--white); border-radius: 12px; padding: 12px 14px; cursor: pointer; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;">
+          <button id="pay-method-wallet" onclick="selectPayMethod('wallet')" style="width: 100%; border: 2px solid var(--grayBorder); background: var(--white); border-radius: 12px; padding: 10px 12px; cursor: pointer; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 20px;">👛</span>
+              <span style="font-size: 18px;">👛</span>
               <div style="text-align: left;">
-                <div style="font-weight: 800; font-size: 13px; color: var(--charcoal);">Saldo SOHO</div>
-                <div style="font-size: 11px; color: var(--gray);">Balance: $320</div>
+                <div style="font-weight: 800; font-size: 12px; color: var(--charcoal);">Saldo SOHO Wallet</div>
+                <div style="font-size: 10px; color: var(--gray);">Disponible: $320 MXN</div>
               </div>
             </div>
-            <span style="font-size: 11px; background: #D1FAE5; color: #065F46; border-radius: 20px; padding: 2px 8px; font-weight: 700;">Disponible</span>
+            <span style="font-size: 10px; background: #D1FAE5; color: #065F46; border-radius: 20px; padding: 2px 7px; font-weight: 700;">Usar Saldo</span>
           </button>
 
           <!-- Card Option -->
-          <button id="pay-method-card" onclick="selectPayMethod('card')" style="width: 100%; border: 2px solid var(--red); background: var(--redPale); border-radius: 12px; padding: 12px 14px; cursor: pointer; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; box-sizing: border-box;">
-            <span style="font-size: 20px;">💳</span>
-            <div style="font-weight: 800; font-size: 13px; color: var(--red);">Tarjeta crédito / débito</div>
+          <button id="pay-method-card" onclick="selectPayMethod('card')" style="width: 100%; border: 2px solid var(--red); background: var(--redPale); border-radius: 12px; padding: 10px 12px; cursor: pointer; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; box-sizing: border-box;">
+            <span style="font-size: 18px;">💳</span>
+            <div style="font-weight: 800; font-size: 13px; color: var(--red);">Tarjeta crédito / débito (Stripe)</div>
           </button>
 
           <!-- Stripe Card Form -->
-          <div id="stripe-card-form-box" style="background: var(--white); border: 1px solid var(--grayBorder); border-radius: 12px; padding: 14px; margin-top: 8px;">
-            <div style="font-size: 9px; font-weight: 800; letter-spacing: 1px; color: var(--gray); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
-              <span>🔒 PAGO SEGURO VÍA STRIPE</span>
+          <div id="stripe-card-form-box" style="background: var(--white); border: 1px solid var(--grayBorder); border-radius: 12px; padding: 12px; margin-top: 8px;">
+            <div style="font-size: 9px; font-weight: 800; letter-spacing: 1px; color: var(--gray); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <span>🔒 ENCRIPTACIÓN SSL STRIPE</span>
               <span style="margin-left: auto; display: flex; gap: 4px;">
-                <span style="background: #1A1F71; color: #fff; border-radius: 3px; padding: 1px 5px; font-size: 8px; font-weight: 900;">VISA</span>
-                <span style="background: #EB001B; color: #fff; border-radius: 3px; padding: 1px 5px; font-size: 8px; font-weight: 900;">MC</span>
-                <span style="background: #2E77BC; color: #fff; border-radius: 3px; padding: 1px 5px; font-size: 8px; font-weight: 900;">AMEX</span>
+                <span style="background: #1A1F71; color: #fff; border-radius: 3px; padding: 1px 4px; font-size: 8px; font-weight: 900;">VISA</span>
+                <span style="background: #EB001B; color: #fff; border-radius: 3px; padding: 1px 4px; font-size: 8px; font-weight: 900;">MC</span>
+                <span style="background: #2E77BC; color: #fff; border-radius: 3px; padding: 1px 4px; font-size: 8px; font-weight: 900;">AMEX</span>
               </span>
             </div>
 
             <!-- Number -->
-            <div style="margin-bottom: 10px;">
-              <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 4px;">Número de tarjeta</div>
+            <div style="margin-bottom: 8px;">
+              <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 3px;">Número de tarjeta</div>
               <div style="position: relative;">
                 <input id="card-num-input" placeholder="4242 •••• •••• ••••" value="4242 4242 4242 4242" oninput="handleCardFormat(this)" class="form-control" style="padding-right: 60px;">
-                <span id="card-brand-tag" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 10px; color: var(--gray); font-weight: 700;">💳 Visa</span>
+                <span id="card-brand-tag" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 10px; color: var(--gray); font-weight: 700;">💳 Visa</span>
               </div>
             </div>
 
             <!-- Name -->
-            <div style="margin-bottom: 10px;">
-              <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 4px;">Nombre del titular</div>
+            <div style="margin-bottom: 8px;">
+              <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 3px;">Nombre del titular</div>
               <input id="card-name-input" placeholder="Como aparece en la tarjeta" value="VALERIA MORALES" class="form-control">
             </div>
 
             <!-- Expiry + CVC -->
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 8px;">
               <div style="flex: 1;">
-                <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 4px;">Expira</div>
+                <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 3px;">Expira</div>
                 <input id="card-exp-input" placeholder="MM/AA" value="08/28" maxlength="5" oninput="handleExpiryFormat(this)" class="form-control">
               </div>
               <div style="flex: 1;">
-                <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 4px;">CVC</div>
+                <div style="font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 3px;">CVC</div>
                 <input id="card-cvc-input" placeholder="123" value="888" maxlength="4" class="form-control">
               </div>
-            </div>
-
-            <div style="display: flex; align-items: center; gap: 5px; margin-top: 12px;">
-              <span style="font-size: 12px;">🔒</span>
-              <span style="font-size: 10px; color: var(--gray);">Tus datos están protegidos con encriptación SSL. No guardamos tu número de tarjeta.</span>
             </div>
           </div>
 
           <!-- Express Info Box -->
-          <div id="express-pay-info-box" style="display:none; background: var(--white); border: 1px solid var(--grayBorder); border-radius: 12px; padding: 20px 16px; margin-top: 8px; text-align: center;">
-            <div style="font-size: 40px; margin-bottom: 8px;" id="express-pay-emoji">🍎</div>
-            <div style="font-weight: 700; font-size: 14px; color: var(--charcoal);" id="express-pay-title">Apple Pay</div>
-            <div style="font-size: 12px; color: var(--gray); margin-top: 6px;">Confirma el pago con Face ID / Touch ID al presionar el botón de pago.</div>
+          <div id="express-pay-info-box" style="display:none; background: var(--white); border: 1px solid var(--grayBorder); border-radius: 12px; padding: 18px 14px; margin-top: 8px; text-align: center;">
+            <div style="font-size: 36px; margin-bottom: 6px;" id="express-pay-emoji">🍎</div>
+            <div style="font-weight: 700; font-size: 13px; color: var(--charcoal);" id="express-pay-title">Apple Pay</div>
+            <div style="font-size: 11px; color: var(--gray); margin-top: 4px;">Confirma el pago con Face ID / Touch ID al presionar pagar.</div>
           </div>
 
-          <div id="payment-error-alert" style="display:none; background: #FEE2E2; color: var(--danger); border-radius: 10px; padding: 10px 13px; font-size: 12px; font-weight: 600; margin-top: 12px;"></div>
+          <div id="payment-error-alert" style="display:none; background: #FEE2E2; color: var(--danger); border-radius: 10px; padding: 8px 12px; font-size: 11px; font-weight: 600; margin-top: 10px;"></div>
         </div>
 
         <!-- Pay CTA -->
-        <div style="padding: 0 14px 24px; background: var(--white); border-top: 1px solid var(--grayBorder);">
-          <button id="pay-submit-btn" onclick="processPaymentAsync()" class="btn btn-primary btn-block" style="padding: 16px; font-size: 16px; margin-top: 12px;">
+        <div style="padding: 0 14px 22px; background: var(--white); border-top: 1px solid var(--grayBorder);">
+          <button id="pay-submit-btn" onclick="processPaymentAsync()" class="btn btn-primary btn-block" style="padding: 15px; font-size: 15px; margin-top: 10px;">
             <span id="pay-submit-label">🔒 Pagar $0</span>
           </button>
         </div>
@@ -774,77 +848,97 @@
 
       <!-- SCREEN 7: TRACKING -->
       <div id="screen-tracking" class="client-screen">
-        <div style="background: linear-gradient(160deg, var(--redDeep) 0%, var(--red) 100%); min-height: 100%; display: flex; flex-direction: column; align-items: center; padding: 44px 20px; text-align: center;">
-          <div style="font-size: 60px; margin-bottom: 14px;">🍵</div>
+        <div style="background: linear-gradient(160deg, var(--redDeep) 0%, var(--red) 100%); min-height: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px 18px; text-align: center;">
+          <div style="font-size: 54px; margin-bottom: 10px;">🍵</div>
           <div style="font-weight: 900; font-size: 22px; color: var(--white);" id="track-order-num">ORDER #1049</div>
-          <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 32px; margin-top: 4px;">Tu orden está siendo preparada</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 28px; margin-top: 2px;">Tu orden ha sido confirmada y enviada a barra</div>
 
           <div style="width: 100%; max-width: 320px; text-align: left;" id="track-steps-list">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-              <div style="font-weight: 800; color: var(--white); font-size: 14px; flex: 1;">✅ Confirmado</div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <div style="font-weight: 800; color: var(--white); font-size: 13px; flex: 1;">✅ Confirmado</div>
             </div>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-              <div style="font-weight: 800; color: var(--white); font-size: 14px; flex: 1;">🟠 Preparando</div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <div style="font-weight: 800; color: var(--white); font-size: 13px; flex: 1;">🟠 Preparando</div>
               <span class="soho-badge badge-white">Ahora</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; opacity: 0.35;">
-              <div style="font-weight: 400; color: var(--white); font-size: 14px; flex: 1;">🟢 Listo para pick up</div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; opacity: 0.35;">
+              <div style="font-weight: 400; color: var(--white); font-size: 13px; flex: 1;">🟢 Listo para pick up</div>
             </div>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; opacity: 0.35;">
-              <div style="font-weight: 400; color: var(--white); font-size: 14px; flex: 1;">✨ Recogido</div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; opacity: 0.35;">
+              <div style="font-weight: 400; color: var(--white); font-size: 13px; flex: 1;">✨ Recogido</div>
             </div>
           </div>
 
-          <div style="background: var(--white); border-radius: 16px; padding: 16px 20px; margin-top: 24px; width: 100%; max-width: 320px; text-align: center;">
-            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 4px;">📍 PICK UP EN</div>
-            <div style="font-weight: 900; font-size: 18px; color: var(--charcoal);">SOHO Cafetería</div>
-            <div style="font-size: 12px; color: var(--red); margin-top: 3px; font-weight: 600;" id="track-time-label">
+          <div style="background: var(--white); border-radius: 14px; padding: 14px 18px; margin-top: 20px; width: 100%; max-width: 320px; text-align: center;">
+            <div style="font-size: 9px; font-weight: 800; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 3px;">📍 PICK UP EN</div>
+            <div style="font-weight: 900; font-size: 16px; color: var(--charcoal);">SOHO Cafetería & Matcha Bar</div>
+            <div style="font-size: 12px; color: var(--red); margin-top: 2px; font-weight: 700;" id="track-time-label">
               ⚡ Lo antes posible (~10 min)
             </div>
           </div>
 
-          <button onclick="openClientScreen('home')" style="margin-top: 28px; background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 10px 22px; cursor: pointer; font-weight: 700; color: var(--white); font-size: 13px;">
+          <button onclick="openClientScreen('home')" style="margin-top: 24px; background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 9px 20px; cursor: pointer; font-weight: 700; color: var(--white); font-size: 12px;">
             ← Volver al inicio
           </button>
         </div>
       </div>
 
-      <!-- SCREEN 8: SOHO CLUB / PROFILE -->
+      <!-- SCREEN 8: CLIENT PROFILE & SOHO CLUB -->
       <div id="screen-profile" class="client-screen">
-        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px 14px; display: flex; align-items: center; gap: 10px;">
+        <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px; display: flex; align-items: center; gap: 10px;">
           <button onclick="openClientScreen('home')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 12px; color: var(--white); cursor: pointer; font-size: 13px;">←</button>
           <div style="font-weight: 900; font-size: 16px; color: var(--white);">Mi Perfil SOHO CLUB ⭐</div>
         </div>
 
         <div style="padding: 14px; flex: 1; overflow-y: auto;">
-          <!-- User info card -->
+          <!-- User info card with photo -->
           <div class="card">
-            <div class="flex justify-between items-center">
-              <div>
-                <div style="font-weight: 900; font-size: 18px;">Valeria Morales</div>
-                <div style="font-size: 12px; color: var(--gray);">valeria@ejemplo.com · +52 55 4912 3456</div>
+            <div class="flex items-center gap-2" style="margin-bottom:12px;">
+              <div class="student-avatar-wrap" style="width:60px; height:60px;">
+                <img id="prof-avatar-img" class="student-avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Foto">
+                <button onclick="openStudentPhotoModal('cust-1')" style="position:absolute; bottom:-3px; right:-3px; background:var(--red); color:white; border:2px solid white; border-radius:50%; width:22px; height:22px; font-size:10px; cursor:pointer; display:flex; align-items:center; justify-content:center;" title="Cambiar foto">📸</button>
               </div>
-              <span class="soho-badge badge-red">NIVEL SILVER</span>
+              <div style="flex:1;">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <div style="font-weight: 900; font-size: 17px;" id="prof-user-name">Valeria Morales</div>
+                    <div style="font-size: 11px; color: var(--gray);" id="prof-user-contact">valeria@ejemplo.com · +52 55 4912 3456</div>
+                  </div>
+                </div>
+                <div style="margin-top:4px; display:flex; gap:6px; align-items:center;">
+                  <span id="prof-user-tier" class="soho-badge badge-red">NIVEL SILVER</span>
+                  <span class="tag-level tag-level-gold">🟡 ALUMNO INTERMEDIO</span>
+                </div>
+              </div>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:14px; text-align:center;">
-              <div style="background:var(--cream); padding:10px; border-radius:8px;">
-                <div style="font-size:10px; font-weight:800; color:var(--gray);">PUNTOS</div>
-                <div style="font-weight:900; font-size:18px; color:var(--red);" id="prof-points-val">1,240</div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:8px; text-align:center;">
+              <div style="background:var(--cream); padding:8px; border-radius:8px;">
+                <div style="font-size:9px; font-weight:800; color:var(--gray);">PUNTOS</div>
+                <div style="font-weight:900; font-size:16px; color:var(--red);" id="prof-points-val">1,240</div>
               </div>
-              <div style="background:var(--cream); padding:10px; border-radius:8px;">
-                <div style="font-size:10px; font-weight:800; color:var(--gray);">PEDIDOS</div>
-                <div style="font-weight:900; font-size:18px; color:var(--charcoal);" id="prof-orders-val">8</div>
+              <div style="background:var(--cream); padding:8px; border-radius:8px;">
+                <div style="font-size:9px; font-weight:800; color:var(--gray);">PEDIDOS</div>
+                <div style="font-weight:900; font-size:16px; color:var(--charcoal);" id="prof-orders-val">8</div>
               </div>
-              <div style="background:var(--cream); padding:10px; border-radius:8px;">
-                <div style="font-size:10px; font-weight:800; color:var(--gray);">WALLET</div>
-                <div style="font-weight:900; font-size:18px; color:var(--gold);">$320</div>
+              <div style="background:var(--cream); padding:8px; border-radius:8px;">
+                <div style="font-size:9px; font-weight:800; color:var(--gray);">WALLET</div>
+                <div style="font-weight:900; font-size:16px; color:var(--gold);">$320</div>
               </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions: Favoritos & Reordenar -->
+          <div class="card">
+            <div style="font-weight:800; font-size:13px; margin-bottom:8px;">⚡ Pedidos Favoritos (1-Tap Reorder)</div>
+            <div id="profile-favorites-container" style="display:flex; flex-direction:column; gap:8px;">
+              <!-- Populated favorites -->
             </div>
           </div>
 
           <!-- Rewards Catalog -->
           <div class="card">
-            <div style="font-weight:800; font-size:13px; margin-bottom:10px;">🎁 Catálogo de Premios</div>
+            <div style="font-weight:800; font-size:13px; margin-bottom:8px;">🎁 Recompensas Disponibles</div>
             <div id="profile-rewards-container" style="display:flex; flex-direction:column; gap:8px;">
               <!-- Populated rewards -->
             </div>
@@ -852,7 +946,7 @@
 
           <!-- Order History -->
           <div class="card">
-            <div style="font-weight:800; font-size:13px; margin-bottom:10px;">📜 Historial de Pedidos</div>
+            <div style="font-weight:800; font-size:13px; margin-bottom:8px;">📜 Historial de Pedidos</div>
             <div id="profile-history-container" style="display:flex; flex-direction:column; gap:8px;">
               <!-- Populated history -->
             </div>
@@ -863,22 +957,24 @@
     </main>
 
     <!-- ==========================================================================
-         ADMIN SIDE APPLICATION (Full Operations Suite)
+         ADMIN & BARISTA OPERATIONS SUITE (11 MODULES)
          ========================================================================== -->
     <div id="admin-app">
       <!-- Admin Header -->
-      <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="background: linear-gradient(135deg, var(--redDeep), var(--red)); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
         <div>
-          <div style="color: var(--white); font-weight: 900; font-size: 15px;">☕ SOHO Admin & POS</div>
+          <div style="color: var(--white); font-weight: 900; font-size: 15px;" id="admin-header-title">☕ SOHO Operations Suite</div>
           <div style="color: rgba(255,255,255,0.7); font-size: 10px;" id="admin-header-datetime">Roma Norte · Barra Principal</div>
         </div>
-        <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 16px; color:white;">👤</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="soho-badge badge-white" id="admin-active-role-tag">OWNER</span>
+        </div>
       </div>
 
       <!-- Admin Layout Container -->
       <div class="admin-layout-container">
-        <!-- Sidebar Navigation -->
-        <nav class="admin-sidebar">
+        <!-- Sidebar Navigation (Responsive) -->
+        <nav class="admin-sidebar" id="admin-main-sidebar">
           <button class="admin-tab-btn active" onclick="switchAdminTab('dashboard')" id="adm-tab-dashboard">📊 Dashboard</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('orders')" id="adm-tab-orders">🛒 Control Pedidos</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('scheduled')" id="adm-tab-scheduled">📅 Programados</button>
@@ -887,7 +983,7 @@
           <button class="admin-tab-btn" onclick="switchAdminTab('inventory')" id="adm-tab-inventory">📦 Inventario Insumos</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('tips')" id="adm-tab-tips">💰 Propinas & Nómina</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('crm')" id="adm-tab-crm">👥 Clientes CRM</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('loyalty')" id="adm-tab-loyalty">⭐ SOHO CLUB</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('loyalty')" id="adm-tab-loyalty">⭐ SOHO CLUB Config</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('staff')" id="adm-tab-staff">👩‍💼 Personal & Turnos</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('settings')" id="adm-tab-settings">⏰ Horarios & Ajustes</button>
         </nav>
@@ -895,106 +991,144 @@
         <!-- Admin Content Panels -->
         <main class="admin-content">
           
-          <!-- ADMIN 1: DASHBOARD -->
+          <!-- 1. DASHBOARD -->
           <div id="adm-panel-dashboard" class="admin-panel active">
-            <div style="font-weight: 900; font-size: 17px; margin-bottom: 14px; color: var(--charcoal);">Hoy 📊</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 14px;">
-              <div style="background: var(--redDeep); border-radius: 12px; padding: 13px;">
-                <div style="font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 600;">Ventas</div>
-                <div style="font-size: 24px; font-weight: 900; color: var(--white); line-height: 1.2;" id="dash-val-sales">$12,850</div>
-                <div style="font-size: 10px; color: var(--redMid); margin-top: 2px; font-weight: 600;">↑ 12% vs ayer</div>
-              </div>
-              <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder);">
-                <div style="font-size: 10px; color: var(--gray); font-weight: 600;">Pedidos</div>
-                <div style="font-size: 24px; font-weight: 900; color: var(--charcoal); line-height: 1.2;" id="dash-val-orders">87</div>
-                <div style="font-size: 10px; color: var(--gold); margin-top: 2px; font-weight: 600;">hoy</div>
-              </div>
-              <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder);">
-                <div style="font-size: 10px; color: var(--gray); font-weight: 600;">Ticket prom.</div>
-                <div style="font-size: 24px; font-weight: 900; color: var(--charcoal); line-height: 1.2;" id="dash-val-ticket">$147</div>
-                <div style="font-size: 10px; color: var(--gold); margin-top: 2px; font-weight: 600;">por pedido</div>
-              </div>
-              <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder);">
-                <div style="font-size: 10px; color: var(--gray); font-weight: 600;">Clientes</div>
-                <div style="font-size: 24px; font-weight: 900; color: var(--charcoal); line-height: 1.2;" id="dash-val-customers">64</div>
-                <div style="font-size: 10px; color: var(--gold); margin-top: 2px; font-weight: 600;">únicos</div>
+            <div class="flex justify-between items-center mb-3">
+              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">Dashboard Operativo 📊</div>
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-sm btn-secondary" onclick="switchRevenueChartRange('day')">Día</button>
+                <button class="btn btn-sm btn-primary" onclick="switchRevenueChartRange('week')">Semana</button>
+                <button class="btn btn-sm btn-secondary" onclick="switchRevenueChartRange('month')">Mes</button>
               </div>
             </div>
 
+            <!-- Stats Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px;">
+              <div style="background: var(--redDeep); border-radius: 12px; padding: 13px;">
+                <div style="font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 600;">Ventas Hoy</div>
+                <div style="font-size: 22px; font-weight: 900; color: var(--white); line-height: 1.2;" id="dash-val-sales">$12,850</div>
+                <div style="font-size: 10px; color: var(--redMid); margin-top: 2px; font-weight: 600;">↑ 14% vs ayer</div>
+              </div>
+              <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder);">
+                <div style="font-size: 10px; color: var(--gray); font-weight: 600;">Pedidos Hoy</div>
+                <div style="font-size: 22px; font-weight: 900; color: var(--charcoal); line-height: 1.2;" id="dash-val-orders">87</div>
+                <div style="font-size: 10px; color: var(--gold); margin-top: 2px; font-weight: 600;">completados</div>
+              </div>
+              <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder);">
+                <div style="font-size: 10px; color: var(--gray); font-weight: 600;">Ticket Promedio</div>
+                <div style="font-size: 22px; font-weight: 900; color: var(--charcoal); line-height: 1.2;" id="dash-val-ticket">$147</div>
+                <div style="font-size: 10px; color: var(--green); margin-top: 2px; font-weight: 600;">por cliente</div>
+              </div>
+              <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder);">
+                <div style="font-size: 10px; color: var(--gray); font-weight: 600;">Propinas Hoy</div>
+                <div style="font-size: 22px; font-weight: 900; color: var(--gold); line-height: 1.2;" id="dash-val-tips">$1,420</div>
+                <div style="font-size: 10px; color: var(--greenDark); margin-top: 2px; font-weight: 600;">100% baristas</div>
+              </div>
+            </div>
+
+            <!-- Live Order Board -->
             <div style="background: var(--white); border-radius: 12px; padding: 13px; margin-bottom: 14px; border: 1px solid var(--grayBorder);">
-              <div style="font-weight: 800; margin-bottom: 10px; font-size: 12px; color: var(--charcoal);">Pedidos ahorita</div>
+              <div style="font-weight: 800; margin-bottom: 10px; font-size: 12px; color: var(--charcoal);">Estado de pedidos en vivo</div>
               <div style="display: flex; gap: 8px;">
-                <div style="flex: 1; text-align: center; background: #EEF2FF; border-radius: 10px; padding: 10px 4px;">
+                <div style="flex: 1; text-align: center; background: #EEF2FF; border-radius: 10px; padding: 10px 4px; cursor:pointer;" onclick="switchAdminTab('orders')">
                   <div style="font-size: 20px;">🟣</div>
                   <div style="font-weight: 900; font-size: 22px; color: #4338CA;" id="dash-count-new">2</div>
-                  <div style="font-size: 10px; color: #4338CA; font-weight: 600;">Nuevo</div>
+                  <div style="font-size: 10px; color: #4338CA; font-weight: 700;">Nuevos</div>
                 </div>
-                <div style="flex: 1; text-align: center; background: #FEF3C7; border-radius: 10px; padding: 10px 4px;">
+                <div style="flex: 1; text-align: center; background: #FEF3C7; border-radius: 10px; padding: 10px 4px; cursor:pointer;" onclick="switchAdminTab('orders')">
                   <div style="font-size: 20px;">🟠</div>
                   <div style="font-weight: 900; font-size: 22px; color: #B45309;" id="dash-count-prep">2</div>
-                  <div style="font-size: 10px; color: #B45309; font-weight: 600;">Preparando</div>
+                  <div style="font-size: 10px; color: #B45309; font-weight: 700;">Preparando</div>
                 </div>
-                <div style="flex: 1; text-align: center; background: #D1FAE5; border-radius: 10px; padding: 10px 4px;">
+                <div style="flex: 1; text-align: center; background: #D1FAE5; border-radius: 10px; padding: 10px 4px; cursor:pointer;" onclick="switchAdminTab('orders')">
                   <div style="font-size: 20px;">🟢</div>
                   <div style="font-weight: 900; font-size: 22px; color: #065F46;" id="dash-count-ready">1</div>
-                  <div style="font-size: 10px; color: #065F46; font-weight: 600;">Listo</div>
+                  <div style="font-size: 10px; color: #065F46; font-weight: 700;">Listos</div>
                 </div>
               </div>
             </div>
 
-            <!-- Best sellers -->
-            <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder); margin-bottom: 14px;">
-              <div style="font-weight: 800; margin-bottom: 10px; font-size: 12px; color: var(--charcoal);">🏆 Best sellers hoy</div>
-              <div id="dash-bestsellers-chart"></div>
-            </div>
-
-            <!-- SVG Revenue Chart -->
-            <div style="background: var(--white); border-radius: 12px; padding: 13px; border: 1px solid var(--grayBorder);">
-              <div class="flex justify-between items-center" style="margin-bottom:10px;">
-                <div style="font-weight: 800; font-size: 12px; color: var(--charcoal);">📈 Gráfica de Ventas Semanal</div>
-                <span class="soho-badge badge-red">MXN</span>
+            <!-- Best Sellers & Revenue Chart -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px;">
+              <div class="card">
+                <div style="font-weight: 800; margin-bottom: 10px; font-size: 12px; color: var(--charcoal);">🏆 Best Sellers Hoy</div>
+                <div id="dash-bestsellers-chart"></div>
               </div>
-              <div style="height: 160px; width: 100%;" id="dash-svg-chart-container"></div>
+              <div class="card">
+                <div class="flex justify-between items-center" style="margin-bottom:10px;">
+                  <div style="font-weight: 800; font-size: 12px; color: var(--charcoal);">📈 Ingresos de la Semana</div>
+                  <span class="soho-badge badge-red">MXN</span>
+                </div>
+                <div style="height: 150px; width: 100%;" id="dash-svg-chart-container"></div>
+              </div>
             </div>
           </div>
 
-          <!-- ADMIN 2: ORDERS & KANBAN -->
+          <!-- 2. CONTROL DE PEDIDOS (KANBAN & ATRIBUCIÓN DE PROPINAS) -->
           <div id="adm-panel-orders" class="admin-panel">
-            <div style="font-weight: 900; font-size: 17px; margin-bottom: 14px; color: var(--charcoal);">Control de pedidos</div>
-            <div id="admin-orders-list-container"></div>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">🛒 Control de Pedidos (Kanban)</div>
+                <div style="font-size: 11px; color: var(--gray);">Asigna tu nombre al tomar la orden para registrar el 100% de la propina</div>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <select id="filter-orders-barista" onchange="filterOrdersBoard()" class="form-select" style="width:auto; padding:4px 8px; font-size:11px;">
+                  <option value="all">Todos los baristas</option>
+                  <option value="Mateo Silva">Mateo Silva</option>
+                  <option value="Sofía Conde">Sofía Conde</option>
+                  <option value="Carlos Mendoza">Carlos Mendoza</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="kanban-grid" id="admin-kanban-board-container">
+              <!-- Rendered Kanban columns: NEW, PREPARING, READY, COMPLETED -->
+            </div>
           </div>
 
-          <!-- ADMIN 3: SCHEDULED ORDERS -->
+          <!-- 3. PEDIDOS PROGRAMADOS -->
           <div id="adm-panel-scheduled" class="admin-panel">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">📅 Programados</div>
-              <span style="background: var(--red); color: var(--white); border-radius: 20px; padding: 3px 10px; font-size: 10px; font-weight: 800;" id="scheduled-badge-count">Próx 30 min: 5</span>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">📅 Pedidos Programados</div>
+                <div style="font-size: 11px; color: var(--gray);">Línea de tiempo agrupada por slots de 15 minutos</div>
+              </div>
+              <span class="soho-badge badge-red" id="scheduled-badge-count">Próx 30 min: 5</span>
             </div>
             <div id="admin-scheduled-timeline-container"></div>
           </div>
 
-          <!-- ADMIN 4: MENU MANAGEMENT -->
+          <!-- 4. GESTIÓN DE MENÚ (FULL EDIT) -->
           <div id="adm-panel-products" class="admin-panel">
-            <div class="flex justify-between items-center" style="margin-bottom: 14px;">
-              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">🧋 Gestión de menú</div>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">🧋 Gestión de Menú</div>
+                <div style="font-size: 11px; color: var(--gray);">Edición completa de productos, tamaños, insumos, y estatus en vivo</div>
+              </div>
               <button class="btn btn-sm btn-primary" onclick="openMenuEditModal(null)">+ Nuevo Producto</button>
             </div>
             <div id="admin-products-list-container"></div>
           </div>
 
-          <!-- ADMIN 5: RECIPES & MARGIN CALCULATOR -->
+          <!-- 5. RECETARIO MAESTRO & CALCULADORA DE COSTOS -->
           <div id="adm-panel-recipes" class="admin-panel">
-            <div class="flex justify-between items-center" style="margin-bottom: 14px;">
-              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">📖 Recetario Maestro & Margen</div>
-              <button class="btn btn-sm btn-secondary" onclick="window.print()">🖨️ Imprimir Barra</button>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">📖 Recetario Maestro & Margen</div>
+                <div style="font-size: 11px; color: var(--gray);">Estándares de preparación, insumos por tamaño y margen bruto</div>
+              </div>
+              <button class="btn btn-sm btn-secondary" onclick="window.print()">🖨️ Imprimir para Barra</button>
             </div>
-            <div id="admin-recipes-container" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px;"></div>
+            <div id="admin-recipes-container" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:12px;"></div>
           </div>
 
-          <!-- ADMIN 6: INVENTORY -->
+          <!-- 6. INVENTARIO DE INSUMOS -->
           <div id="adm-panel-inventory" class="admin-panel">
-            <div class="flex justify-between items-center" style="margin-bottom: 14px;">
-              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">📦 Inventario de Insumos</div>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">📦 Inventario de Insumos</div>
+                <div style="font-size: 11px; color: var(--gray);">Deducción automática al preparar y control de mínimos</div>
+              </div>
               <div style="display:flex; gap:6px;">
                 <button class="btn btn-sm btn-secondary" onclick="openStockAdjustModal()">⚖️ Ajuste</button>
                 <button class="btn btn-sm btn-primary" onclick="openPurchaseLogModal()">+ Compra</button>
@@ -1006,9 +1140,9 @@
                 <thead>
                   <tr>
                     <th>Insumo</th>
-                    <th>Stock</th>
+                    <th>Nivel de Stock</th>
                     <th>Mínimo</th>
-                    <th>Costo</th>
+                    <th>Costo Unitario</th>
                   </tr>
                 </thead>
                 <tbody id="admin-inventory-tbody"></tbody>
@@ -1016,22 +1150,25 @@
             </div>
           </div>
 
-          <!-- ADMIN 7: TIPS & PAYROLL -->
+          <!-- 7. PROPINAS & NÓMINA -->
           <div id="adm-panel-tips" class="admin-panel">
-            <div class="flex justify-between items-center" style="margin-bottom: 14px;">
-              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">💰 Propinas & Nómina Baristas</div>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">💰 Propinas & Nómina de Baristas</div>
+                <div style="font-size: 11px; color: var(--gray);">100% de las propinas asignadas a cada barista por orden</div>
+              </div>
               <button class="btn btn-sm btn-secondary" onclick="exportTipsCSV()">📥 Exportar CSV</button>
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
               <div class="card">
                 <div style="font-size:10px; color:var(--gray); font-weight:800;">TOTAL PROPINAS HOY</div>
-                <div style="font-size:22px; font-weight:900; color:var(--gold);" id="tips-total-val">$0</div>
-                <div style="font-size:10px; color:var(--greenDark);">100% para baristas</div>
+                <div style="font-size:24px; font-weight:900; color:var(--gold);" id="tips-total-val">$0</div>
+                <div style="font-size:10px; color:var(--greenDark);">Acreditado directamente</div>
               </div>
               <div class="card">
                 <div style="font-size:10px; color:var(--gray); font-weight:800;">PEDIDOS CON PROPINA</div>
-                <div style="font-size:22px; font-weight:900; color:var(--charcoal);" id="tips-orders-count">0</div>
-                <div style="font-size:10px; color:var(--gray);">promedio 15%</div>
+                <div style="font-size:24px; font-weight:900; color:var(--charcoal);" id="tips-orders-count">0</div>
+                <div style="font-size:10px; color:var(--gray);">Promedio 15%</div>
               </div>
             </div>
             <div class="table-container">
@@ -1039,8 +1176,8 @@
                 <thead>
                   <tr>
                     <th>Barista</th>
-                    <th>Turno</th>
-                    <th>Propinas</th>
+                    <th>Turno Asignado</th>
+                    <th>Propinas Acumuladas</th>
                   </tr>
                 </thead>
                 <tbody id="admin-tips-tbody"></tbody>
@@ -1048,10 +1185,13 @@
             </div>
           </div>
 
-          <!-- ADMIN 8: CUSTOMERS CRM -->
+          <!-- 8. CLIENTES & CRM -->
           <div id="adm-panel-crm" class="admin-panel">
-            <div class="flex justify-between items-center" style="margin-bottom: 14px;">
-              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">👥 Clientes & CRM</div>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">👥 Clientes & CRM</div>
+                <div style="font-size: 11px; color: var(--gray);">Historial de compras, niveles de lealtad y notas de clientes</div>
+              </div>
               <button class="btn btn-sm btn-secondary" onclick="exportCRMCSV()">📥 CSV</button>
             </div>
             <div class="table-container">
@@ -1059,9 +1199,11 @@
                 <thead>
                   <tr>
                     <th>Cliente</th>
+                    <th>Segmento</th>
                     <th>Nivel</th>
                     <th>Puntos</th>
-                    <th>Gastado</th>
+                    <th>Total Gastado</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody id="admin-crm-tbody"></tbody>
@@ -1069,48 +1211,74 @@
             </div>
           </div>
 
-          <!-- ADMIN 9: SOHO CLUB CONFIG -->
+          <!-- 9. SOHO CLUB / LEALTAD CONFIG -->
           <div id="adm-panel-loyalty" class="admin-panel">
-            <div style="font-weight: 900; font-size: 17px; margin-bottom: 14px; color: var(--charcoal);">⭐ Configuración SOHO CLUB</div>
-            <div class="card">
-              <div class="form-group" style="margin-bottom:12px;">
-                <label class="form-label">Puntos por $10 MXN gastados</label>
-                <input type="number" id="cfg-loyalty-rate" class="form-control" value="1">
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">⭐ Configuración SOHO CLUB</div>
+                <div style="font-size: 11px; color: var(--gray);">Reglas de puntos, catálogo de recompensas y tiers</div>
               </div>
-              <div class="form-group" style="margin-bottom:12px;">
-                <label class="form-label">Puntos de Bienvenida (Registro)</label>
-                <input type="number" id="cfg-loyalty-welcome" class="form-control" value="50">
+              <button class="btn btn-sm btn-primary" onclick="openNewRewardModal()">+ Nueva Recompensa</button>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px;">
+              <div class="card">
+                <div class="form-group" style="margin-bottom:10px;">
+                  <label class="form-label">Puntos por cada $10 MXN gastados</label>
+                  <input type="number" id="cfg-loyalty-rate" class="form-control" value="1">
+                </div>
+                <div class="form-group" style="margin-bottom:10px;">
+                  <label class="form-label">Puntos de Bienvenida (Registro OTP)</label>
+                  <input type="number" id="cfg-loyalty-welcome" class="form-control" value="50">
+                </div>
+                <div class="form-group" style="margin-bottom:12px;">
+                  <label class="form-label">Bono de Cumpleaños (Puntos)</label>
+                  <input type="number" id="cfg-loyalty-birthday" class="form-control" value="100">
+                </div>
+                <button class="btn btn-primary btn-block btn-sm" onclick="saveLoyaltyRules()">Guardar Reglas</button>
               </div>
-              <button class="btn btn-primary btn-block btn-sm" onclick="saveLoyaltyConfig()">Guardar Reglas</button>
+
+              <div class="card">
+                <div style="font-weight:800; font-size:12px; margin-bottom:8px;">🎁 Catálogo de Recompensas Activas</div>
+                <div id="admin-rewards-list-container" style="display:flex; flex-direction:column; gap:6px;"></div>
+              </div>
             </div>
           </div>
 
-          <!-- ADMIN 10: STAFF & SHIFTS -->
+          <!-- 10. PERSONAL & TURNOS -->
           <div id="adm-panel-staff" class="admin-panel">
-            <div class="flex justify-between items-center" style="margin-bottom: 14px;">
-              <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">👩‍💼 Personal & Turnos</div>
-              <button class="btn btn-sm btn-primary" onclick="openAddStaffModal()">+ Personal</button>
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <div style="font-weight: 900; font-size: 17px; color: var(--charcoal);">👩‍💼 Personal & Turnos de Barra</div>
+                <div style="font-size: 11px; color: var(--gray);">Horarios de apertura y cierre de baristas</div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openAddStaffModal()">+ Nuevo Personal</button>
             </div>
             <div id="admin-staff-list" style="display:flex; flex-direction:column; gap:8px;"></div>
           </div>
 
-          <!-- ADMIN 11: SETTINGS & HOURS -->
+          <!-- 11. HORARIOS & AJUSTES -->
           <div id="adm-panel-settings" class="admin-panel">
-            <div style="font-weight: 900; font-size: 17px; margin-bottom: 14px; color: var(--charcoal);">⏰ Horarios & Ajustes</div>
+            <div style="font-weight: 900; font-size: 17px; margin-bottom: 12px; color: var(--charcoal);">⏰ Horarios & Ajustes del Sistema</div>
             <div class="card">
-              <div class="form-group" style="margin-bottom:12px;">
-                <label class="form-label">Nombre Sucursal</label>
-                <input type="text" class="form-control" value="SOHO Cafetería & Matcha Bar" id="cfg-store-name">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                <div>
+                  <label class="form-label">Nombre Sucursal</label>
+                  <input type="text" class="form-control" value="SOHO Cafetería & Matcha Bar" id="cfg-store-name">
+                </div>
+                <div>
+                  <label class="form-label">Lead Time Mínimo (Minutos)</label>
+                  <input type="number" class="form-control" value="10" id="cfg-lead-time">
+                </div>
               </div>
               <div class="form-group" style="margin-bottom:12px;">
                 <label class="form-label">Dirección</label>
                 <input type="text" class="form-control" value="Colima 145, Roma Norte, CDMX" id="cfg-store-addr">
               </div>
-              <div class="form-group" style="margin-bottom:12px;">
+              <div class="form-group" style="margin-bottom:14px;">
                 <label class="form-label">Stripe Public Key (Mock)</label>
                 <input type="text" class="form-control" value="pk_test_soho_matcha_roma_51N8">
               </div>
-              <div style="display:flex; gap:8px; margin-top:16px;">
+              <div style="display:flex; gap:8px;">
                 <button class="btn btn-sm btn-secondary" onclick="exportBackupJSON()">💾 Respaldo JSON</button>
                 <button class="btn btn-sm btn-secondary" style="color:var(--danger);" onclick="resetDemoDataPrompt()">⚠️ Restaurar Demo</button>
               </div>
@@ -1139,7 +1307,7 @@
   <script>
     const formatMXN = (n) => `$${n}`;
 
-    // INITIAL MENU DATA
+    /* INITIAL MENU DATA */
     const INITIAL_MENU = [
       {
         id: 1, cat: "Matcha", name: "Iced Matcha Latte", price: 95, tag: "Best Seller",
@@ -1206,11 +1374,11 @@
     ];
 
     const INITIAL_ORDERS = [
-      { id: 1048, status: "new", item: "Iced Matcha 16oz", mods: "Oatly · 50% · Vanilla Foam", time: "8:32 AM", total: 140, tipAmount: 20, emoji: "🍵", barista: "Mateo Silva", tip: "Disuelve el matcha en agua caliente antes de agregar leche fría." },
-      { id: 1047, status: "preparing", item: "Oat Latte 12oz", mods: "Oatly · Sin azúcar", time: "8:30 AM", total: 85, tipAmount: 15, emoji: "☕", barista: "Sofía Conde", tip: "Texturiza la Oatly entre 55–60°C, no más." },
-      { id: 1046, status: "ready", item: "Cold Brew 16oz", mods: "Solo", time: "8:28 AM", total: 90, tipAmount: 10, emoji: "🧊", barista: "Mateo Silva", tip: "Hielo hasta el borde siempre." },
-      { id: 1045, status: "new", item: "Strawberry Matcha 22oz", mods: "Almendra · Extra Fresa", time: "8:35 AM", total: 150, tipAmount: 25, emoji: "🍓", barista: "Carlos M.", tip: "Coulis en espiral, de afuera hacia adentro." },
-      { id: 1044, status: "preparing", item: "Cold Brew + Cookie", mods: "Sin leche", time: "8:25 AM", total: 135, tipAmount: 20, emoji: "🧊", barista: "Sofía Conde", tip: "Cookie en papel encerado, aparte de la bebida." }
+      { id: 1048, customerName: "Valeria Morales", status: "new", item: "Iced Matcha 16oz", mods: "Oatly · 50% · Vanilla Foam", time: "8:32 AM", total: 140, tipAmount: 20, emoji: "🍵", barista: "Mateo Silva", tip: "Disuelve el matcha en agua caliente antes de agregar leche fría." },
+      { id: 1047, customerName: "Diego Arriaga", status: "preparing", item: "Oat Latte 12oz", mods: "Oatly · Sin azúcar", time: "8:30 AM", total: 85, tipAmount: 15, emoji: "☕", barista: "Sofía Conde", tip: "Texturiza la Oatly entre 55–60°C, no más." },
+      { id: 1046, customerName: "Ana Gómez", status: "ready", item: "Cold Brew 16oz", mods: "Solo", time: "8:28 AM", total: 90, tipAmount: 10, emoji: "🧊", barista: "Mateo Silva", tip: "Hielo hasta el borde siempre." },
+      { id: 1045, customerName: "Pablo Torres", status: "new", item: "Strawberry Matcha 22oz", mods: "Almendra · Extra Fresa", time: "8:35 AM", total: 150, tipAmount: 25, emoji: "🍓", barista: "Carlos Mendoza", tip: "Coulis en espiral, de afuera hacia adentro." },
+      { id: 1044, customerName: "Mariana López", status: "preparing", item: "Cold Brew + Cookie", mods: "Sin leche", time: "8:25 AM", total: 135, tipAmount: 20, emoji: "🧊", barista: "Sofía Conde", tip: "Cookie en papel encerado, aparte de la bebida." }
     ];
 
     const INITIAL_SCHEDULED = [
@@ -1236,9 +1404,10 @@
     ];
 
     const INITIAL_CUSTOMERS = [
-      { id: "cust-1", name: "Valeria Morales", email: "valeria@ejemplo.com", phone: "+52 55 4912 3456", tier: "Silver", points: 1240, totalSpent: 2450, totalOrders: 8 },
-      { id: "cust-2", name: "Diego Arriaga", email: "diego@soho.club", phone: "+52 55 8890 1234", tier: "Gold", points: 4200, totalSpent: 5120, totalOrders: 16 },
-      { id: "cust-3", name: "Ana Gómez", email: "ana.g@gmail.com", phone: "+52 55 3344 5566", tier: "Regular", points: 280, totalSpent: 620, totalOrders: 3 }
+      { id: "cust-1", name: "Valeria Morales", email: "valeria@ejemplo.com", phone: "+52 55 4912 3456", tier: "Silver", points: 1240, totalSpent: 2450, totalOrders: 8, segment: "Regular" },
+      { id: "cust-2", name: "Diego Arriaga", email: "diego@soho.club", phone: "+52 55 8890 1234", tier: "Gold", points: 4200, totalSpent: 5120, totalOrders: 16, segment: "VIP" },
+      { id: "cust-3", name: "Ana Gómez", email: "ana.g@gmail.com", phone: "+52 55 3344 5566", tier: "Regular", points: 280, totalSpent: 620, totalOrders: 3, segment: "Regular" },
+      { id: "cust-4", name: "Pablo Torres", email: "pablo.t@gmail.com", phone: "+52 55 1122 3344", tier: "Regular", points: 90, totalSpent: 150, totalOrders: 1, segment: "New" }
     ];
 
     const INITIAL_REWARDS = [
@@ -1247,7 +1416,20 @@
       { id: "rew-3", name: "Cookie o Croissant Gratis", pointsCost: 120, value: 55, type: "free_bakery" }
     ];
 
-    /* CENTRAL STATE */
+    const INITIAL_STUDENTS = [
+      {
+        id: "cust-1",
+        name: "Valeria Morales",
+        photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        level: "Intermedio",
+        levelTag: "🟡 INTERMEDIO",
+        levelClass: "tag-level-gold",
+        imageStatus: "Excelente",
+        imageNotes: "Excelente presentación, uniforme completo y limpio."
+      }
+    ];
+
+    /* CENTRAL REACTIVE STATE */
     let STATE = {
       menu: INITIAL_MENU,
       orders: INITIAL_ORDERS,
@@ -1255,10 +1437,21 @@
       inventory: INITIAL_INVENTORY,
       staff: INITIAL_STAFF,
       customers: INITIAL_CUSTOMERS,
-      rewards: INITIAL_REWARDS
+      rewards: INITIAL_REWARDS,
+      students: INITIAL_STUDENTS
     };
 
     /* CLIENT ACTIVE SESSION */
+    let currentUser = {
+      isAuth: true,
+      name: "Valeria Morales",
+      phone: "+52 55 4912 3456",
+      email: "valeria@ejemplo.com",
+      tier: "Silver",
+      points: 1240
+    };
+
+    let currentRole = "owner"; // owner, manager, barista, cashier
     let clientCart = [];
     let activeCategory = "Matcha";
     let selectedProductForModal = null;
@@ -1268,19 +1461,17 @@
     let selectedTipPct = 15;
     let selectedPayMethod = "card";
     let lastCreatedOrderNum = 1049;
-
-    /* EXPANDED BARISTA TIPS IN ADMIN */
     let expandedAdminTips = {};
 
     /* LOCALSTORAGE */
     function loadSavedState() {
       try {
-        const saved = localStorage.getItem("SOHO_FULL_STATE");
+        const saved = localStorage.getItem("SOHO_FULL_STATE_V3");
         if (saved) STATE = JSON.parse(saved);
       } catch (e) { console.error(e); }
     }
     function saveState() {
-      try { localStorage.setItem("SOHO_FULL_STATE", JSON.stringify(STATE)); } catch(e){}
+      try { localStorage.setItem("SOHO_FULL_STATE_V3", JSON.stringify(STATE)); } catch(e){}
     }
 
     /* INIT */
@@ -1327,6 +1518,29 @@
       updateTopIndicators();
     }
 
+    function changeStaffRole(role) {
+      currentRole = role;
+      document.getElementById("admin-active-role-tag").textContent = role.toUpperCase();
+      
+      // Filter sidebar according to role
+      const tabs = {
+        owner: ["dashboard", "orders", "scheduled", "products", "recipes", "inventory", "tips", "crm", "loyalty", "staff", "settings"],
+        manager: ["dashboard", "orders", "scheduled", "products", "recipes", "inventory", "tips", "crm", "loyalty", "staff"],
+        barista: ["orders", "scheduled", "recipes"],
+        cashier: ["dashboard", "orders", "crm"]
+      };
+
+      const allowed = tabs[role] || tabs.owner;
+      document.querySelectorAll(".admin-tab-btn").forEach(btn => {
+        const tabId = btn.id.replace("adm-tab-", "");
+        btn.style.display = allowed.includes(tabId) ? "block" : "none";
+      });
+
+      // Switch to first allowed
+      switchAdminTab(allowed[0]);
+      showToast(`✓ Cambiado a Rol: ${role.toUpperCase()}`, "info");
+    }
+
     function openClientScreen(screenName) {
       document.querySelectorAll(".client-screen").forEach(s => s.classList.remove("active"));
       const target = document.getElementById(`screen-${screenName}`);
@@ -1369,7 +1583,6 @@
         badge.style.display = "none";
       }
 
-      // Floating cart on client menu
       const cartCount = clientCart.length;
       const cartBadge = document.getElementById("menu-cart-badge");
       const floatingBtn = document.getElementById("menu-floating-cart-btn");
@@ -1387,23 +1600,91 @@
     }
 
     /* ==========================================================================
-       CLIENT: HOME & BEST SELLERS
+       AUTHENTICATION (CLIENT OTP & SOCIAL LOGIN)
+       ========================================================================== */
+    function openAuthModal() {
+      openGlobalModal(`
+        <div style="padding:20px;">
+          <div class="flex justify-between items-center mb-3">
+            <h3 style="font-size:17px;">📱 Iniciar Sesión en SOHO</h3>
+            <button onclick="closeGlobalModal()" style="border:none; background:none; font-size:20px; cursor:pointer;">&times;</button>
+          </div>
+          <div style="font-size:12px; color:var(--gray); margin-bottom:14px;">
+            Ingresa tu celular para recibir tu código OTP vía SMS (Sin contraseñas).
+          </div>
+
+          <div id="auth-step-phone">
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Número de Teléfono (México +52)</label>
+              <input type="tel" id="auth-phone-input" class="form-control" placeholder="55 1234 5678" value="55 4912 3456">
+            </div>
+            <button class="btn btn-primary btn-block btn-sm" onclick="sendAuthOTP()">Enviar Código SMS →</button>
+            
+            <div style="text-align:center; margin:14px 0; font-size:11px; color:var(--gray);">o continúa con</div>
+            
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-secondary btn-block btn-sm" onclick="loginSocial('Apple')">🍎 Apple</button>
+              <button class="btn btn-secondary btn-block btn-sm" onclick="loginSocial('Google')">🟢 Google</button>
+            </div>
+          </div>
+
+          <div id="auth-step-otp" style="display:none;">
+            <div style="background:var(--cream); padding:10px; border-radius:8px; margin-bottom:12px; font-size:11px; color:var(--charcoal);">
+              Código SMS enviado a <strong id="auth-phone-display">+52 55 4912 3456</strong>
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Código de 4 Dígitos (Demo: 8888)</label>
+              <input type="text" id="auth-otp-input" class="form-control" placeholder="• • • •" maxlength="4" style="text-align:center; font-size:20px; letter-spacing:8px;" value="8888">
+            </div>
+            <button class="btn btn-primary btn-block btn-sm" onclick="verifyAuthOTP()">✓ Verificar y Entrar</button>
+          </div>
+        </div>
+      `);
+    }
+
+    function sendAuthOTP() {
+      const phone = document.getElementById("auth-phone-input").value.trim();
+      if (!phone) { showToast("⚠️ Ingresa un número de celular", "error"); return; }
+      document.getElementById("auth-step-phone").style.display = "none";
+      document.getElementById("auth-step-otp").style.display = "block";
+      document.getElementById("auth-phone-display").textContent = "+52 " + phone;
+      showToast("📲 Código SMS de prueba: 8888", "info");
+    }
+
+    function verifyAuthOTP() {
+      const otp = document.getElementById("auth-otp-input").value.trim();
+      if (otp.length < 4) { showToast("⚠️ Ingresa el código de 4 dígitos", "error"); return; }
+      currentUser.isAuth = true;
+      closeGlobalModal();
+      showToast("✓ ¡Bienvenida a SOHO CLUB! (+50 pts de bienvenida)", "success");
+      renderProfileScreen();
+    }
+
+    function loginSocial(provider) {
+      currentUser.isAuth = true;
+      closeGlobalModal();
+      showToast(`✓ Sesión iniciada con ${provider}`, "success");
+      renderProfileScreen();
+    }
+
+    /* ==========================================================================
+       CLIENT: HOME & MENU & CUSTOMIZATION
        ========================================================================== */
     function renderClientHome() {
       const container = document.getElementById("home-bestsellers-list");
       const bestSellers = STATE.menu.filter(m => m.tag && m.active).slice(0, 2);
       container.innerHTML = bestSellers.map(p => `
-        <div onclick="openProductCustomizer(${p.id})" style="background: var(--white); border-radius: 16px; padding: 14px 14px; margin-bottom: 9px; display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 1px 8px rgba(0,0,0,0.07); border: 1px solid var(--grayBorder);">
-          <div style="font-size: 36px;">${p.emoji}</div>
+        <div onclick="openProductCustomizer(${p.id})" style="background: var(--white); border-radius: 16px; padding: 13px; margin-bottom: 9px; display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border: 1px solid var(--grayBorder);">
+          <div style="font-size: 34px;">${p.emoji}</div>
           <div style="flex: 1;">
             <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
               <div style="font-weight: 800; font-size: 14px; color: var(--charcoal);">${p.name}</div>
               <span class="soho-badge badge-red badge-small">${p.tag}</span>
             </div>
-            <div style="font-size: 11px; color: var(--gray);">${p.desc.slice(0, 44)}...</div>
-            <div style="font-weight: 800; color: var(--red); margin-top: 4px; font-size: 13px;">desde ${formatMXN(p.price)}</div>
+            <div style="font-size: 11px; color: var(--gray);">${p.desc.slice(0, 42)}...</div>
+            <div style="font-weight: 800; color: var(--red); margin-top: 3px; font-size: 13px;">desde ${formatMXN(p.price)}</div>
           </div>
-          <div style="color: var(--grayBorder); font-size: 20px;">›</div>
+          <div style="color: var(--grayBorder); font-size: 18px;">›</div>
         </div>
       `).join("");
     }
@@ -1413,9 +1694,6 @@
       openClientScreen("menu");
     }
 
-    /* ==========================================================================
-       CLIENT: MENU
-       ========================================================================== */
     function renderClientMenu() {
       const tabsContainer = document.getElementById("menu-category-tabs");
       const productsContainer = document.getElementById("menu-products-container");
@@ -1429,20 +1707,20 @@
 
       const filtered = STATE.menu.filter(m => m.cat === activeCategory && m.active);
       productsContainer.innerHTML = filtered.map(p => `
-        <div onclick="${p.soldOut ? `showToast('⚠️ Producto agotado temporalmente', 'error')` : `openProductCustomizer(${p.id})`}" style="background: var(--white); border-radius: 16px; margin-bottom: 10px; overflow: hidden; box-shadow: 0 1px 8px rgba(0,0,0,0.07); cursor: pointer; display: flex; border: 1px solid var(--grayBorder); opacity: ${p.soldOut ? 0.6 : 1};">
-          <div style="background: var(--redPale); width: 84px; display: flex; align-items: center; justify-content: center; font-size: 42px; flex-shrink: 0;">
+        <div onclick="${p.soldOut ? `showToast('⚠️ Producto agotado temporalmente', 'error')` : `openProductCustomizer(${p.id})`}" style="background: var(--white); border-radius: 14px; margin-bottom: 10px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.06); cursor: pointer; display: flex; border: 1px solid var(--grayBorder); opacity: ${p.soldOut ? 0.6 : 1};">
+          <div style="background: var(--redPale); width: 80px; display: flex; align-items: center; justify-content: center; font-size: 40px; flex-shrink: 0;">
             ${p.emoji}
           </div>
-          <div style="padding: 13px 14px; flex: 1;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3px;">
+          <div style="padding: 12px 14px; flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
               <div style="font-weight: 800; font-size: 14px; color: var(--charcoal);">${p.name}</div>
               ${p.tag ? `<span class="soho-badge badge-red badge-small">${p.tag}</span>` : ''}
               ${p.soldOut ? `<span class="soho-badge badge-small" style="background:#4B5563; color:#fff;">Agotado</span>` : ''}
             </div>
-            <div style="font-size: 11px; color: var(--gray); margin-bottom: 8px; line-height: 1.4;">${p.desc}</div>
+            <div style="font-size: 11px; color: var(--gray); margin-bottom: 6px; line-height: 1.35;">${p.desc}</div>
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-weight: 900; color: var(--red); font-size: 15px;">desde ${formatMXN(p.price)}</span>
-              <div style="background: var(--red); color: var(--white); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700;">+</div>
+              <span style="font-weight: 900; color: var(--red); font-size: 14px;">desde ${formatMXN(p.price)}</span>
+              <div style="background: var(--red); color: var(--white); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700;">+</div>
             </div>
           </div>
         </div>
@@ -1456,9 +1734,6 @@
       renderClientMenu();
     }
 
-    /* ==========================================================================
-       CLIENT: PRODUCT CUSTOMIZER
-       ========================================================================== */
     function openProductCustomizer(productId) {
       const p = STATE.menu.find(m => m.id === productId);
       if (!p) return;
@@ -1478,7 +1753,6 @@
       const badgeContainer = document.getElementById("prod-modal-badge");
       badgeContainer.innerHTML = p.tag ? `<span class="soho-badge badge-white">${p.tag}</span>` : '';
 
-      // Barista tip
       const tipContainer = document.getElementById("prod-modal-tip-container");
       tipContainer.innerHTML = p.tip ? `
         <div class="tip-card">
@@ -1487,7 +1761,6 @@
         </div>
       ` : '';
 
-      // Sizes chips
       const sizesContainer = document.getElementById("prod-sizes-chips");
       sizesContainer.innerHTML = p.sizes.map(s => `
         <button class="soho-chip ${selectedConfig.size?.label === s.label ? 'selected' : ''}" onclick="selectCustomizerOption('size', '${s.label}')">
@@ -1495,7 +1768,6 @@
         </button>
       `).join("");
 
-      // Milks
       const milkSec = document.getElementById("prod-milks-section");
       const milksContainer = document.getElementById("prod-milks-chips");
       if (p.milks && p.milks.length > 0) {
@@ -1509,7 +1781,6 @@
         milkSec.style.display = "none";
       }
 
-      // Sweetness
       const sweetSec = document.getElementById("prod-sweetness-section");
       const sweetContainer = document.getElementById("prod-sweetness-chips");
       if (p.sweetness && p.sweetness.length > 0) {
@@ -1523,7 +1794,6 @@
         sweetSec.style.display = "none";
       }
 
-      // Addons
       const addSec = document.getElementById("prod-addons-section");
       const addContainer = document.getElementById("prod-addons-chips");
       if (p.addons && p.addons.length > 0) {
@@ -1600,9 +1870,7 @@
       openClientScreen("menu");
     }
 
-    /* ==========================================================================
-       CLIENT: CART & BARISTA TIP
-       ========================================================================== */
+    /* CART & PICKUP & PAYMENT */
     function renderCartScreen() {
       const container = document.getElementById("cart-content-container");
       const footerBtn = document.getElementById("cart-footer-checkout-btn");
@@ -1610,9 +1878,9 @@
       if (clientCart.length === 0) {
         container.innerHTML = `
           <div style="text-align: center; padding-top: 60px;">
-            <div style="font-size: 52px;">🛒</div>
-            <div style="font-weight: 700; color: var(--gray); margin-top: 12px;">Carrito vacío</div>
-            <button onclick="openClientScreen('menu')" class="btn btn-primary btn-sm" style="margin-top: 14px;">Ver menú</button>
+            <div style="font-size: 48px;">🛒</div>
+            <div style="font-weight: 700; color: var(--gray); margin-top: 10px;">Carrito vacío</div>
+            <button onclick="openClientScreen('menu')" class="btn btn-primary btn-sm" style="margin-top: 12px;">Ver menú</button>
           </div>
         `;
         footerBtn.style.display = "none";
@@ -1625,62 +1893,62 @@
       const cartTotal = cartSubtotal + tipAmount;
 
       const itemsHtml = clientCart.map(item => `
-        <div style="background: var(--white); border-radius: 14px; padding: 13px 14px; margin-bottom: 9px; border: 1px solid var(--grayBorder);">
+        <div style="background: var(--white); border-radius: 12px; padding: 12px; margin-bottom: 8px; border: 1px solid var(--grayBorder);">
           <div style="display: flex; justify-content: space-between;">
             <div style="display: flex; gap: 8px; align-items: center;">
-              <span style="font-size: 20px;">${item.product.emoji}</span>
-              <div style="font-weight: 700; font-size: 14px; color: var(--charcoal);">${item.product.name}</div>
+              <span style="font-size: 18px;">${item.product.emoji}</span>
+              <div style="font-weight: 700; font-size: 13px; color: var(--charcoal);">${item.product.name}</div>
             </div>
-            <div style="font-weight: 800; color: var(--red);">${formatMXN(item.price)}</div>
+            <div style="font-weight: 800; color: var(--red); font-size: 13px;">${formatMXN(item.price)}</div>
           </div>
-          <div style="font-size: 11px; color: var(--gray); margin-top: 4px; margin-left: 28px;">
+          <div style="font-size: 11px; color: var(--gray); margin-top: 4px; margin-left: 26px;">
             ${item.config.size?.label || ''}${item.config.milk ? ` · ${item.config.milk.label}` : ''}${item.config.sweetness ? ` · ${item.config.sweetness}` : ''}
             ${item.config.addons?.length > 0 ? ' · ' + item.config.addons.map(a => a.label).join(', ') : ''}
           </div>
-          <button onclick="removeCartItem(${item.id})" style="background: none; border: none; color: var(--danger); font-size: 11px; cursor: pointer; margin-top: 6px; padding: 0;">Eliminar</button>
+          <button onclick="removeCartItem(${item.id})" style="background: none; border: none; color: var(--danger); font-size: 10px; cursor: pointer; margin-top: 4px; padding: 0;">Eliminar</button>
         </div>
       `).join("");
 
       const tipHtml = `
-        <div style="background: var(--white); border-radius: 14px; padding: 14px; margin-top: 6px; border: 1px solid var(--grayBorder);">
-          <div style="font-size: 13px; font-weight: 800; color: var(--charcoal); margin-bottom: 2px;">
+        <div style="background: var(--white); border-radius: 12px; padding: 12px; margin-top: 6px; border: 1px solid var(--grayBorder);">
+          <div style="font-size: 12px; font-weight: 800; color: var(--charcoal); margin-bottom: 2px;">
             ❤️ Propina para la persona que prepara tu bebida
           </div>
-          <div style="font-size: 11px; color: var(--gray); margin-bottom: 12px;">
+          <div style="font-size: 10px; color: var(--gray); margin-bottom: 10px;">
             100% va directo a tu barista
           </div>
-          <div style="display: flex; gap: 8px;">
+          <div style="display: flex; gap: 6px;">
             ${[10, 15, 20].map(pct => {
               const amt = Math.round(cartSubtotal * pct / 100);
               const sel = selectedTipPct === pct;
               return `
-                <button onclick="setCartTip(${pct})" style="flex: 1; border: 2px solid ${sel ? 'var(--red)' : 'var(--grayBorder)'}; background: ${sel ? 'var(--redPale)' : 'var(--cream)'}; border-radius: 12px; padding: 10px 4px; cursor: pointer; transition: all 0.15s;">
-                  <div style="font-weight: 900; font-size: 16px; color: ${sel ? 'var(--red)' : 'var(--charcoal)'};">${pct}%</div>
-                  <div style="font-size: 11px; color: ${sel ? 'var(--red)' : 'var(--gray)'}; margin-top: 2px; font-weight: 600;">${formatMXN(amt)}</div>
+                <button onclick="setCartTip(${pct})" style="flex: 1; border: 1.5px solid ${sel ? 'var(--red)' : 'var(--grayBorder)'}; background: ${sel ? 'var(--redPale)' : 'var(--cream)'}; border-radius: 10px; padding: 8px 4px; cursor: pointer;">
+                  <div style="font-weight: 900; font-size: 15px; color: ${sel ? 'var(--red)' : 'var(--charcoal)'};">${pct}%</div>
+                  <div style="font-size: 10px; color: ${sel ? 'var(--red)' : 'var(--gray)'}; font-weight: 600;">${formatMXN(amt)}</div>
                 </button>
               `;
             }).join("")}
-            <button onclick="setCartTip(null)" style="flex: 1; border: 2px solid ${selectedTipPct === null ? 'var(--charcoal)' : 'var(--grayBorder)'}; background: ${selectedTipPct === null ? '#F5F5F5' : 'var(--cream)'}; border-radius: 12px; padding: 10px 4px; cursor: pointer;">
-              <div style="font-weight: 900; font-size: 13px; color: ${selectedTipPct === null ? 'var(--charcoal)' : 'var(--gray)'};">Sin</div>
-              <div style="font-size: 11px; color: var(--gray); margin-top: 2px;">propina</div>
+            <button onclick="setCartTip(null)" style="flex: 1; border: 1.5px solid ${selectedTipPct === null ? 'var(--charcoal)' : 'var(--grayBorder)'}; background: ${selectedTipPct === null ? '#F5F5F5' : 'var(--cream)'}; border-radius: 10px; padding: 8px 4px; cursor: pointer;">
+              <div style="font-weight: 900; font-size: 12px; color: ${selectedTipPct === null ? 'var(--charcoal)' : 'var(--gray)'};">Sin</div>
+              <div style="font-size: 10px; color: var(--gray);">propina</div>
             </button>
           </div>
         </div>
 
-        <div style="background: var(--white); border-radius: 14px; padding: 14px; margin-top: 8px; border: 1px solid var(--grayBorder);">
-          <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--gray); margin-bottom: 5px;">
+        <div style="background: var(--white); border-radius: 12px; padding: 12px; margin-top: 8px; border: 1px solid var(--grayBorder);">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--gray); margin-bottom: 4px;">
             <span>Subtotal</span><span>${formatMXN(cartSubtotal)}</span>
           </div>
           ${tipAmount > 0 ? `
-            <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--red); margin-bottom: 5px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--red); margin-bottom: 4px;">
               <span>❤️ Propina (${selectedTipPct}%)</span><span>${formatMXN(tipAmount)}</span>
             </div>
           ` : ''}
-          <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--gold); margin-bottom: 5px;">
-            <span>⭐ Puntos que ganas</span><span>+${Math.floor(cartSubtotal / 10)} pts</span>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--gold); margin-bottom: 4px;">
+            <span>⭐ Puntos SOHO CLUB</span><span>+${Math.floor(cartSubtotal / 10)} pts</span>
           </div>
-          <div style="border-top: 1px solid var(--grayBorder); padding-top: 9px; display: flex; justify-content: space-between; font-weight: 800; font-size: 15px; color: var(--charcoal);">
-            <span>Total</span><span style="color: var(--red);">${formatMXN(cartTotal)}</span>
+          <div style="border-top: 1px solid var(--grayBorder); padding-top: 8px; display: flex; justify-content: space-between; font-weight: 800; font-size: 14px; color: var(--charcoal);">
+            <span>Total</span><span style="color: var(--red); font-size:16px;">${formatMXN(cartTotal)}</span>
           </div>
         </div>
       `;
@@ -1699,9 +1967,6 @@
       renderCartScreen();
     }
 
-    /* ==========================================================================
-       CLIENT: PICKUP TIME SELECTOR (15-min slots generator)
-       ========================================================================== */
     function renderPickupScreen() {
       const now = new Date();
       let start = new Date(now.getTime() + 10 * 60 * 1000);
@@ -1712,15 +1977,13 @@
 
       const end = new Date(now.getTime() + 24 * 60 * 60 * 1000);
       let cursor = new Date(start);
-      const months = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
-      const days = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
       const grouped = {};
 
       while (cursor <= end) {
         const dk = cursor.toDateString();
         const isToday = dk === now.toDateString();
         const isTom = dk === new Date(now.getTime() + 86400000).toDateString();
-        const dl = isToday ? "Hoy" : isTom ? "Mañana" : `${days[cursor.getDay()]} ${cursor.getDate()} ${months[cursor.getMonth()]}`;
+        const dl = isToday ? "Hoy" : isTom ? "Mañana" : "Próximo";
         if (!grouped[dk]) grouped[dk] = { label: dl, slots: [] };
         const h = cursor.getHours(), m = cursor.getMinutes();
         if (h >= 7 && h < 20) {
@@ -1734,13 +1997,13 @@
       const validDays = Object.values(grouped).filter(d => d.slots.length > 0);
       const slotsContainer = document.getElementById("pickup-slots-container");
       slotsContainer.innerHTML = validDays.map(day => `
-        <div style="margin-bottom: 18px;">
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--red); margin-bottom: 9px;">${day.label.toUpperCase()}</div>
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px;">
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--red); margin-bottom: 8px;">${day.label.toUpperCase()}</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
             ${day.slots.map(slot => {
               const isSel = selectedScheduledTime && selectedScheduledTime.label === `${day.label} ${slot.label}`;
               return `
-                <button onclick="selectScheduledSlot('${day.label} ${slot.label}')" style="border: 1.5px solid ${isSel ? 'var(--red)' : 'var(--grayBorder)'}; background: ${isSel ? 'var(--redPale)' : 'var(--white)'}; color: ${isSel ? 'var(--red)' : 'var(--charcoal)'}; border-radius: 10px; padding: 9px 4px; font-size: 12px; font-weight: ${isSel ? '800' : '400'}; cursor: pointer;">
+                <button onclick="selectScheduledSlot('${day.label} ${slot.label}')" style="border: 1.5px solid ${isSel ? 'var(--red)' : 'var(--grayBorder)'}; background: ${isSel ? 'var(--redPale)' : 'var(--white)'}; color: ${isSel ? 'var(--red)' : 'var(--charcoal)'}; border-radius: 8px; padding: 8px 4px; font-size: 11px; font-weight: ${isSel ? '800' : '500'}; cursor: pointer;">
                   ${slot.label}
                 </button>
               `;
@@ -1812,9 +2075,6 @@
       openClientScreen("payment");
     }
 
-    /* ==========================================================================
-       CLIENT: PAYMENT (STRIPE READY MOCK)
-       ========================================================================== */
     function renderPaymentScreen() {
       const cartSubtotal = clientCart.reduce((s, i) => s + i.price, 0);
       const tipAmount = selectedTipPct ? Math.round(cartSubtotal * selectedTipPct / 100) : 0;
@@ -1893,23 +2153,19 @@
 
       const btn = document.getElementById("pay-submit-btn");
       btn.disabled = true;
-      btn.innerHTML = `<span style="display:inline-block; animation:spin 0.7s linear infinite;">⏳</span> Procesando pago con Stripe...`;
+      btn.innerHTML = `<span>⏳ Procesando pago con Stripe...</span>`;
 
-      // Async payment authorization simulation
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1400));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        // Create order ONLY AFTER payment is confirmed
         lastCreatedOrderNum = Math.floor(1000 + Math.random() * 9000);
         const cartSubtotal = clientCart.reduce((s, i) => s + i.price, 0);
         const tipAmount = selectedTipPct ? Math.round(cartSubtotal * selectedTipPct / 100) : 0;
         const cartTotal = cartSubtotal + tipAmount;
 
-        const scheduledBaristas = STATE.staff.filter(s => s.active);
-        const assignedBarista = scheduledBaristas.length > 0 ? scheduledBaristas[0].name : "Mateo Silva";
-
         const newOrder = {
           id: lastCreatedOrderNum,
+          customerName: currentUser.name || "Cliente SOHO",
           status: "new",
           item: clientCart.map(i => `${i.product.name} ${i.config.size?.label || ''}`).join(", "),
           mods: clientCart.map(i => `${i.config.milk?.label || 'Solo'} · ${i.config.sweetness || '100%'}`).join(" | "),
@@ -1917,8 +2173,8 @@
           total: cartTotal,
           tipAmount: tipAmount,
           emoji: clientCart[0]?.product?.emoji || "🍵",
-          barista: assignedBarista,
-          tip: clientCart[0]?.product?.tip || "Servir con cariño y temperatura óptima."
+          barista: "Mateo Silva",
+          tip: clientCart[0]?.product?.tip || "Servir con temperatura óptima."
         };
 
         STATE.orders.unshift(newOrder);
@@ -1934,14 +2190,16 @@
           }
         });
 
+        // Earn loyalty points
+        currentUser.points += Math.floor(cartSubtotal / 10);
+
         saveState();
 
-        // Clear cart
         clientCart = [];
         btn.disabled = false;
         btn.innerHTML = `<span>Pagar</span>`;
 
-        showToast("✓ ¡Pago confirmado con Stripe! Orden enviada", "success");
+        showToast("✓ ¡Pago confirmado! Orden enviada a la barra", "success");
         renderTrackingScreen();
         openClientScreen("tracking");
         updateTopIndicators();
@@ -1953,23 +2211,36 @@
       }
     }
 
-    /* ==========================================================================
-       CLIENT: ORDER TRACKING
-       ========================================================================== */
     function renderTrackingScreen() {
       document.getElementById("track-order-num").textContent = `ORDER #${lastCreatedOrderNum}`;
       document.getElementById("track-time-label").textContent = pickupMode === "asap" ? "⚡ Lo antes posible (~10 min)" : (selectedScheduledTime?.label || "~10 min");
     }
 
     /* ==========================================================================
-       CLIENT: PROFILE & REWARDS
+       CLIENT: PROFILE & REWARDS & 1-TAP REORDER
        ========================================================================== */
     function renderProfileScreen() {
-      const user = STATE.customers[0];
-      document.getElementById("client-points-display").textContent = user.points.toLocaleString();
-      document.getElementById("prof-points-val").textContent = user.points.toLocaleString();
-      document.getElementById("prof-orders-val").textContent = user.totalOrders;
+      document.getElementById("client-points-display").textContent = currentUser.points;
+      document.getElementById("prof-points-val").textContent = currentUser.points;
+      document.getElementById("prof-user-name").textContent = currentUser.name;
+      document.getElementById("prof-user-contact").textContent = `${currentUser.email} · ${currentUser.phone}`;
+      
+      // Favorites 1-tap reorder
+      const favContainer = document.getElementById("profile-favorites-container");
+      favContainer.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--cream); padding:10px 12px; border-radius:10px; border:1px solid var(--grayBorder);">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <span style="font-size:20px;">🍵</span>
+            <div>
+              <div style="font-weight:700; font-size:13px;">Iced Matcha Latte (16oz)</div>
+              <div style="font-size:11px; color:var(--gray);">Oatly Barista · 50% Sweet · Vanilla Foam</div>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="quickReorderFavorite(1)">🔄 Pedir</button>
+        </div>
+      `;
 
+      // Rewards
       const rewContainer = document.getElementById("profile-rewards-container");
       rewContainer.innerHTML = STATE.rewards.map(r => `
         <div style="display:flex; justify-content:space-between; align-items:center; background:var(--cream); padding:10px 12px; border-radius:10px; border:1px solid var(--grayBorder);">
@@ -1977,50 +2248,73 @@
             <div style="font-weight:700; font-size:13px;">${r.name}</div>
             <div style="font-size:11px; color:var(--gray);">Costo: <strong style="color:var(--gold);">${r.pointsCost} pts</strong></div>
           </div>
-          <button class="btn btn-sm ${user.points >= r.pointsCost ? 'btn-primary' : 'btn-secondary'}" 
-                  style="${user.points < r.pointsCost ? 'opacity:0.5; cursor:not-allowed;' : ''}"
-                  onclick="redeemRewardClient('${r.id}')">
-            ${user.points >= r.pointsCost ? 'Canjear' : 'Faltan pts'}
+          <button class="btn btn-sm btn-primary" onclick="redeemRewardClient('${r.id}')">
+            Canjear
           </button>
         </div>
       `).join("");
 
+      // History
       const histContainer = document.getElementById("profile-history-container");
       histContainer.innerHTML = STATE.orders.slice(0, 3).map(o => `
-        <div style="border:1px solid var(--grayBorder); border-radius:10px; padding:10px; background:var(--white);">
-          <div class="flex justify-between items-center mb-1">
-            <span style="font-weight:800; font-size:13px;">#${o.id} · ${o.item}</span>
-            <span style="font-weight:800; color:var(--red);">${formatMXN(o.total)}</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--cream); padding:10px 12px; border-radius:10px; border:1px solid var(--grayBorder);">
+          <div>
+            <div style="font-weight:700; font-size:13px;">#${o.id} · ${o.item}</div>
+            <div style="font-size:11px; color:var(--gray);">${o.time} · ${formatMXN(o.total)}</div>
           </div>
-          <div style="font-size:11px; color:var(--gray);">${o.time} · ${o.mods}</div>
-          <button class="btn btn-secondary btn-sm" style="margin-top:6px; padding:4px 10px; font-size:11px;" onclick="reorderFast('${o.item}')">🔄 Ordenar de nuevo</button>
+          <button class="btn btn-sm btn-secondary" onclick="reorderPastOrder(${o.id})">🔄 Repetir</button>
         </div>
       `).join("");
     }
 
-    function redeemRewardClient(rewardId) {
-      const user = STATE.customers[0];
-      const rew = STATE.rewards.find(r => r.id === rewardId);
-      if (!rew || user.points < rew.pointsCost) return;
-
-      user.points -= rew.pointsCost;
-      saveState();
-      showToast(`🎁 ¡Premio "${rew.name}" canjeado con éxito!`, "success");
-      renderProfileScreen();
-    }
-
-    function reorderFast(itemName) {
-      showToast(`✓ Bebida añadida al carrito`, "success");
+    function quickReorderFavorite(productId) {
+      const p = STATE.menu.find(m => m.id === productId);
+      if (!p) return;
+      clientCart.push({
+        id: Date.now(),
+        product: p,
+        config: {
+          size: p.sizes[1] || p.sizes[0],
+          milk: p.milks[1] || p.milks[0],
+          sweetness: "50%",
+          addons: [p.addons[1] || p.addons[0]]
+        },
+        price: 135
+      });
+      showToast("✓ Pedido favorito añadido al carrito", "success");
       openClientScreen("cart");
     }
 
+    function reorderPastOrder(orderId) {
+      const o = STATE.orders.find(x => x.id === orderId);
+      if (!o) return;
+      showToast(`✓ Repitiendo pedido #${orderId}`, "success");
+      openClientScreen("menu");
+    }
+
+    function redeemRewardClient(rewardId) {
+      const rew = STATE.rewards.find(r => r.id === rewardId);
+      if (!rew) return;
+      if (currentUser.points >= rew.pointsCost) {
+        currentUser.points -= rew.pointsCost;
+        saveState();
+        renderProfileScreen();
+        showToast(`🎁 ¡Premio "${rew.name}" canjeado con éxito!`, "success");
+      } else {
+        showToast("⚠️ Puntos insuficientes para canjear", "error");
+      }
+    }
+
     /* ==========================================================================
-       ADMIN: DASHBOARD & SVG REVENUE CHART
+       ADMIN: DASHBOARD & REVENUE CHART & BEST SELLERS
        ========================================================================== */
     function renderAdminDashboard() {
-      const salesTotal = STATE.orders.reduce((s, o) => s + o.total, 0);
-      document.getElementById("dash-val-sales").textContent = formatMXN(salesTotal + 12400);
+      const salesTotal = STATE.orders.reduce((s, o) => s + o.total, 0) + 12400;
+      const tipsTotal = STATE.orders.reduce((s, o) => s + (o.tipAmount || 0), 0) + 1220;
+      
+      document.getElementById("dash-val-sales").textContent = formatMXN(salesTotal);
       document.getElementById("dash-val-orders").textContent = STATE.orders.length + 80;
+      document.getElementById("dash-val-tips").textContent = formatMXN(tipsTotal);
 
       const newCount = STATE.orders.filter(o => o.status === "new").length;
       const prepCount = STATE.orders.filter(o => o.status === "preparing").length;
@@ -2030,7 +2324,6 @@
       document.getElementById("dash-count-prep").textContent = prepCount;
       document.getElementById("dash-count-ready").textContent = readyCount;
 
-      // Best sellers bars
       const bsContainer = document.getElementById("dash-bestsellers-chart");
       const bsData = [
         { n: "Iced Matcha Latte 🍵", qty: 34, pct: 85 },
@@ -2038,100 +2331,126 @@
         { n: "Strawberry Matcha 🍓", qty: 18, pct: 45 }
       ];
       bsContainer.innerHTML = bsData.map((b, i) => `
-        <div style="display: flex; alignItems: center; gap: 10px; margin-bottom: 10px;">
-          <div style="font-weight: 900; color: var(--red); font-size: 14px; width: 20px;">#${i + 1}</div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <div style="font-weight: 900; color: var(--red); font-size: 13px; width: 18px;">#${i + 1}</div>
           <div style="flex: 1;">
-            <div style="font-size: 12px; font-weight: 600; color: var(--charcoal);">${b.n}</div>
-            <div style="height: 5px; background: var(--redPale); border-radius: 4px; margin-top: 4px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--charcoal);">${b.n}</div>
+            <div style="height: 5px; background: var(--redPale); border-radius: 4px; margin-top: 3px;">
               <div style="height: 100%; width: ${b.pct}%; background: var(--red); border-radius: 4px;"></div>
             </div>
           </div>
-          <div style="font-size: 12px; font-weight: 700; color: var(--gray);">${b.qty}</div>
+          <div style="font-size: 11px; font-weight: 700; color: var(--gray);">${b.qty}</div>
         </div>
       `).join("");
 
-      // SVG Revenue Chart
+      renderRevenueChartSVG("week");
+    }
+
+    function switchRevenueChartRange(range) {
+      renderRevenueChartSVG(range);
+      showToast(`✓ Gráfica actualizada: ${range.toUpperCase()}`, "info");
+    }
+
+    function renderRevenueChartSVG(range) {
       const chartContainer = document.getElementById("dash-svg-chart-container");
-      const days = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
-      const vals = [4200, 5800, 6100, 7400, 9800, 12850, 11200];
+      const labels = range === "day" ? ["8am","10am","12pm","2pm","4pm","6pm","8pm"] : range === "month" ? ["Sem 1","Sem 2","Sem 3","Sem 4"] : ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+      const vals = range === "day" ? [850, 1800, 3200, 2400, 1900, 2100, 600] : range === "month" ? [28000, 34500, 31200, 42000] : [4200, 5800, 6100, 7400, 9800, 12850, 11200];
       const max = Math.max(...vals);
 
+      const barWidth = range === "month" ? 40 : 22;
+      const spacing = 320 / labels.length;
+
       const bars = vals.map((v, i) => {
-        const h = (v / max) * 110;
-        const x = 20 + i * 40;
-        const y = 140 - h;
+        const h = (v / max) * 95;
+        const x = 15 + i * spacing;
+        const y = 125 - h;
         return `
-          <rect x="${x}" y="${y}" width="24" height="${h}" rx="4" fill="var(--red)" />
-          <text x="${x + 12}" y="${y - 4}" text-anchor="middle" font-size="9" font-weight="700" fill="var(--redDeep)">$${(v/1000).toFixed(1)}k</text>
-          <text x="${x + 12}" y="154" text-anchor="middle" font-size="10" font-weight="600" fill="var(--gray)">${days[i]}</text>
+          <rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="4" fill="var(--red)" />
+          <text x="${x + barWidth/2}" y="${y - 4}" text-anchor="middle" font-size="8" font-weight="700" fill="var(--redDeep)">$${(v/1000).toFixed(1)}k</text>
+          <text x="${x + barWidth/2}" y="140" text-anchor="middle" font-size="9" font-weight="600" fill="var(--gray)">${labels[i]}</text>
         `;
       }).join("");
 
       chartContainer.innerHTML = `
-        <svg viewBox="0 0 320 160" style="width:100%; height:100%;">
+        <svg viewBox="0 0 320 150" style="width:100%; height:100%;">
           ${bars}
         </svg>
       `;
     }
 
     /* ==========================================================================
-       ADMIN: ORDERS KANBAN
+       ADMIN: ORDERS KANBAN (WITH BARISTA TIP ATTRIBUTION & AUTO INVENTORY)
        ========================================================================== */
-    const statusColors = {
-      new: { bg: "#EEF2FF", text: "#4338CA", label: "Nuevo" },
-      preparing: { bg: "#FEF3C7", text: "#B45309", label: "Preparando" },
-      ready: { bg: "#D1FAE5", text: "#065F46", label: "Listo" },
-      completed: { bg: "#F3F4F6", text: "#6B7280", label: "Completado" },
-    };
-
     function renderAdminOrders() {
-      const container = document.getElementById("admin-orders-list-container");
-      const statuses = ["new", "preparing", "ready"];
+      const container = document.getElementById("admin-kanban-board-container");
+      const cols = [
+        { id: "new", title: "NUEVO", color: "#4338CA", bg: "#EEF2FF" },
+        { id: "preparing", title: "PREPARANDO", color: "#B45309", bg: "#FEF3C7" },
+        { id: "ready", title: "LISTO", color: "#065F46", bg: "#D1FAE5" },
+        { id: "completed", title: "COMPLETADO", color: "#6B7280", bg: "#F3F4F6" }
+      ];
 
-      container.innerHTML = statuses.map(st => {
-        const list = STATE.orders.filter(o => o.status === st);
-        if (!list.length) return '';
-        const sc = statusColors[st];
+      container.innerHTML = cols.map(col => {
+        const list = STATE.orders.filter(o => o.status === col.id);
         return `
-          <div style="margin-bottom: 20px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-              <div style="background: ${sc.bg}; color: ${sc.text}; border-radius: 20px; padding: 3px 11px; font-weight: 700; font-size: 11px;">${sc.label}</div>
-              <div style="background: ${sc.text}; color: #fff; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800;">${list.length}</div>
+          <div class="kanban-col">
+            <div class="flex justify-between items-center" style="border-bottom:1.5px solid var(--grayBorder); padding-bottom:8px;">
+              <span style="font-weight:800; font-size:11px; color:${col.color};">${col.title}</span>
+              <span class="soho-badge" style="background:${col.color}; color:#fff; font-size:9px;">${list.length}</span>
             </div>
-            ${list.map(o => `
-              <div style="background: var(--white); border: 1px solid var(--grayBorder); border-radius: 12px; padding: 13px; margin-bottom: 8px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
-                  <div style="display: flex; align-items: center; gap: 6px;">
-                    <span style="font-size: 18px;">${o.emoji}</span>
-                    <span style="font-weight: 800; font-size: 14px; color: var(--charcoal);">#${o.id}</span>
-                  </div>
-                  <div style="font-size: 11px; color: var(--gray);">${o.time}</div>
-                </div>
-                <div style="font-weight: 600; font-size: 13px; color: var(--charcoal);">${o.item}</div>
-                <div style="font-size: 11px; color: var(--gray); margin-bottom: 8px;">${o.mods}</div>
 
-                <!-- Expandable Barista Tip -->
-                <button onclick="toggleAdminTip(${o.id})" style="background: ${expandedAdminTips[o.id] ? '#FFF8E1' : 'var(--cream)'}; border: 1px solid ${expandedAdminTips[o.id] ? 'var(--gold)' : 'var(--grayBorder)'}; border-radius: 6px; padding: 5px 10px; font-size: 10px; font-weight: 700; color: ${expandedAdminTips[o.id] ? '#7B5800' : 'var(--gray)'}; cursor: pointer; margin-bottom: 8px; letter-spacing: 0.3px;">
-                  ${expandedAdminTips[o.id] ? '▲ Ocultar tip' : '💡 Ver tip barista'}
-                </button>
-                ${expandedAdminTips[o.id] ? `
-                  <div class="tip-card">
-                    <div class="tip-card-header">💡 TIP BARISTA</div>
-                    <div class="tip-card-body">${o.tip}</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              ${list.map(o => `
+                <div class="card" style="margin-bottom:0; border-left:3.5px solid ${col.color};">
+                  <div class="flex justify-between items-start mb-1">
+                    <div>
+                      <strong style="font-size:13px;">#${o.id}</strong> · <span style="font-size:11px; font-weight:700;">${o.customerName || 'Cliente'}</span>
+                    </div>
+                    <span style="font-size:10px; color:var(--gray);">${o.time}</span>
                   </div>
-                ` : ''}
+                  
+                  <div style="font-weight:700; font-size:12px; color:var(--charcoal); margin-top:2px;">${o.emoji} ${o.item}</div>
+                  <div style="font-size:11px; color:var(--gray);">${o.mods}</div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-                  <div>
-                    <span style="font-weight: 800; font-size: 14px; color: var(--red);">${formatMXN(o.total)}</span>
-                    <span style="font-size:10px; color:var(--gold); font-weight:700; margin-left:4px;">(Propina: ${formatMXN(o.tipAmount || 0)})</span>
-                  </div>
-                  <button onclick="advanceOrderStatus(${o.id})" style="background: ${sc.text}; color: #fff; border: none; border-radius: 20px; padding: 6px 14px; font-size: 11px; font-weight: 700; cursor: pointer;">
-                    ${o.status === 'new' ? 'Preparar →' : 'Listo ✓'}
+                  <!-- Barista tip collapsible -->
+                  <button onclick="toggleAdminTip(${o.id})" style="background:${expandedAdminTips[o.id] ? '#FFF8E1' : 'var(--cream)'}; border:1px solid ${expandedAdminTips[o.id] ? 'var(--gold)' : 'var(--grayBorder)'}; border-radius:6px; padding:3px 8px; font-size:9px; font-weight:700; color:${expandedAdminTips[o.id] ? '#7B5800' : 'var(--gray)'}; cursor:pointer; margin-top:6px; width:100%; text-align:left;">
+                    ${expandedAdminTips[o.id] ? '▲ Ocultar tip barista' : '💡 Ver tip de preparación'}
                   </button>
+                  ${expandedAdminTips[o.id] ? `
+                    <div class="tip-card" style="margin-top:4px;">
+                      <div class="tip-card-header">ESTÁNDAR DE PREPARACIÓN</div>
+                      <div class="tip-card-body">${o.tip}</div>
+                    </div>
+                  ` : ''}
+
+                  <!-- Barista assignment & tip attribution -->
+                  <div style="margin-top:8px; background:var(--cream); padding:6px 8px; border-radius:6px; font-size:10px;">
+                    <div class="flex justify-between items-center mb-1">
+                      <span>Barista:</span>
+                      <select onchange="assignBaristaToOrder(${o.id}, this.value)" style="border:1px solid var(--grayBorder); border-radius:4px; font-size:10px; font-weight:700; background:white;">
+                        <option value="Mateo Silva" ${o.barista === 'Mateo Silva' ? 'selected' : ''}>Mateo Silva</option>
+                        <option value="Sofía Conde" ${o.barista === 'Sofía Conde' ? 'selected' : ''}>Sofía Conde</option>
+                        <option value="Carlos Mendoza" ${o.barista === 'Carlos Mendoza' ? 'selected' : ''}>Carlos Mendoza</option>
+                      </select>
+                    </div>
+                    <div class="flex justify-between items-center font-bold" style="color:var(--gold);">
+                      <span>Propina 100% barista:</span>
+                      <span>${formatMXN(o.tipAmount || 0)}</span>
+                    </div>
+                  </div>
+
+                  <!-- Flow actions -->
+                  <div class="flex justify-between items-center" style="margin-top:8px;">
+                    <span style="font-weight:900; font-size:13px; color:var(--red);">${formatMXN(o.total)}</span>
+                    ${col.id !== 'completed' ? `
+                      <button class="btn btn-sm btn-primary" style="font-size:10px; padding:4px 10px;" onclick="advanceOrderStatus(${o.id})">
+                        ${col.id === 'new' ? 'Preparar →' : col.id === 'preparing' ? 'Listo ✓' : 'Entregar ✨'}
+                      </button>
+                    ` : `<span style="font-size:10px; color:var(--green); font-weight:700;">✓ Entregado</span>`}
+                  </div>
                 </div>
-              </div>
-            `).join("")}
+              `).join("")}
+            </div>
           </div>
         `;
       }).join("");
@@ -2142,6 +2461,15 @@
       renderAdminOrders();
     }
 
+    function assignBaristaToOrder(orderId, baristaName) {
+      const order = STATE.orders.find(o => o.id === orderId);
+      if (!order) return;
+      order.barista = baristaName;
+      saveState();
+      renderAdminTips();
+      showToast(`✓ Propina de $${order.tipAmount || 0} asignada a ${baristaName}`, "success");
+    }
+
     function advanceOrderStatus(orderId) {
       const flow = ["new", "preparing", "ready", "completed"];
       const order = STATE.orders.find(o => o.id === orderId);
@@ -2149,51 +2477,56 @@
 
       const idx = flow.indexOf(order.status);
       order.status = flow[Math.min(idx + 1, flow.length - 1)];
+
+      // Auto deduct inventory when entering preparing
+      if (order.status === "preparing") {
+        const mInv = STATE.inventory.find(i => i.id === "inv-matcha");
+        if (mInv && order.item.includes("Matcha")) mInv.stock = Math.max(0, mInv.stock - 6);
+        renderAdminInventory();
+      }
+
       saveState();
-      showToast(`✓ Pedido #${orderId} actualizado a "${statusColors[order.status].label}"`, "info");
+      showToast(`✓ Pedido #${orderId} avanzado a "${order.status.toUpperCase()}"`, "info");
       renderAdminOrders();
       renderAdminDashboard();
       updateTopIndicators();
     }
 
     /* ==========================================================================
-       ADMIN: SCHEDULED ORDERS
+       ADMIN: SCHEDULED ORDERS & MENU & RECIPES & INVENTORY & CRM & STAFF
        ========================================================================== */
     function renderAdminScheduled() {
       const container = document.getElementById("admin-scheduled-timeline-container");
       container.innerHTML = STATE.scheduled.map(slot => `
-        <div style="margin-bottom: 20px;">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-            <div style="font-weight: 900; font-size: 14px; color: var(--red);">⏰ ${slot.time}</div>
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <div style="font-weight: 900; font-size: 13px; color: var(--red);">⏰ ${slot.time}</div>
             <div style="flex: 1; height: 1px; background: var(--grayBorder);"></div>
-            <div style="font-size: 11px; color: var(--gray);">${slot.orders.length} pedidos</div>
+            <span class="soho-badge badge-red badge-small">En 30 min</span>
           </div>
           ${slot.orders.map(o => `
-            <div style="background: var(--white); border: 1px solid var(--grayBorder); border-radius: 10px; padding: 11px 13px; margin-bottom: 7px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="background: var(--white); border: 1px solid var(--grayBorder); border-radius: 10px; padding: 10px 12px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
               <div style="display: flex; gap: 8px; align-items: center;">
                 <span style="font-size: 18px;">${o.emoji}</span>
                 <div>
-                  <div style="font-weight: 700; font-size: 13px; color: var(--charcoal);">${o.name}</div>
+                  <div style="font-weight: 700; font-size: 12px; color: var(--charcoal);">${o.name}</div>
                   <div style="font-size: 11px; color: var(--gray);">${o.item}</div>
                 </div>
               </div>
-              <div style="font-size: 11px; color: var(--gray);">#${o.id}</div>
+              <div style="font-size: 10px; color: var(--gray);">#${o.id}</div>
             </div>
           `).join("")}
         </div>
       `).join("");
     }
 
-    /* ==========================================================================
-       ADMIN: MENU MANAGEMENT
-       ========================================================================== */
     function renderAdminProducts() {
       const container = document.getElementById("admin-products-list-container");
       container.innerHTML = STATE.menu.map(p => `
-        <div style="background: var(--white); border: 1px solid var(--grayBorder); border-radius: 12px; padding: 13px; margin-bottom: 10px;">
+        <div style="background: var(--white); border: 1px solid var(--grayBorder); border-radius: 12px; padding: 12px; margin-bottom: 10px;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; gap: 10px; align-items: center;">
-              <span style="font-size: 30px;">${p.emoji}</span>
+              <span style="font-size: 28px;">${p.emoji}</span>
               <div>
                 <div style="font-weight: 700; font-size: 14px; color: var(--charcoal);">${p.name}</div>
                 <div style="font-size: 11px; color: var(--gray);">${p.cat} · desde ${formatMXN(p.price)}</div>
@@ -2207,15 +2540,8 @@
             </div>
           </div>
           <div class="tip-card">
-            <div class="tip-card-header">💡 TIP BARISTA</div>
+            <div class="tip-card-header">ESTÁNDAR BARISTA</div>
             <div class="tip-card-body">${p.tip}</div>
-          </div>
-          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-            ${p.sizes.map(s => `
-              <span style="background: var(--redPale); color: var(--red); border-radius: 6px; padding: 3px 8px; font-size: 10px; font-weight: 600;">
-                ${s.label} ${formatMXN(s.price)}
-              </span>
-            `).join("")}
           </div>
         </div>
       `).join("");
@@ -2250,15 +2576,15 @@
 
       openGlobalModal(`
         <div style="padding:16px;">
-          <div class="flex justify-between items-center mb-4">
+          <div class="flex justify-between items-center mb-3">
             <h3 style="font-size:16px;">${productId ? 'Editar Producto' : 'Nuevo Producto'}</h3>
             <button onclick="closeGlobalModal()" style="border:none; background:none; font-size:20px; cursor:pointer;">&times;</button>
           </div>
-          <div class="form-group" style="margin-bottom:10px;">
+          <div class="form-group" style="margin-bottom:8px;">
             <label class="form-label">Nombre</label>
             <input type="text" id="edit-p-name" class="form-control" value="${p.name}">
           </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
             <div>
               <label class="form-label">Emoji</label>
               <input type="text" id="edit-p-emoji" class="form-control" value="${p.emoji}">
@@ -2272,19 +2598,19 @@
               </select>
             </div>
           </div>
-          <div class="form-group" style="margin-bottom:10px;">
-            <label class="form-label">Precio Base</label>
+          <div class="form-group" style="margin-bottom:8px;">
+            <label class="form-label">Precio Base ($MXN)</label>
             <input type="number" id="edit-p-price" class="form-control" value="${p.price}">
           </div>
-          <div class="form-group" style="margin-bottom:10px;">
-            <label class="form-label">Descripción</label>
+          <div class="form-group" style="margin-bottom:8px;">
+            <label class="form-label">Descripción para Cliente</label>
             <textarea id="edit-p-desc" class="form-control" rows="2">${p.desc}</textarea>
           </div>
-          <div class="form-group" style="margin-bottom:14px;">
-            <label class="form-label">Tip para el Barista</label>
+          <div class="form-group" style="margin-bottom:12px;">
+            <label class="form-label">Tip de Preparación para Barista</label>
             <textarea id="edit-p-tip" class="form-control" rows="2">${p.tip}</textarea>
           </div>
-          <button class="btn btn-primary btn-block btn-sm" onclick="saveMenuProduct(${p.id}, ${productId ? 'false' : 'true'})">Guardar Cambios</button>
+          <button class="btn btn-primary btn-block btn-sm" onclick="saveMenuProduct(${p.id}, ${productId ? 'false' : 'true'})">Guardar en Menú</button>
         </div>
       `);
     }
@@ -2325,12 +2651,9 @@
       closeGlobalModal();
       renderAdminProducts();
       renderClientMenu();
-      showToast("✓ Carta de productos actualizada", "success");
+      showToast("✓ Menú actualizado en vivo", "success");
     }
 
-    /* ==========================================================================
-       ADMIN: RECIPE BOOK & MARGIN CALCULATOR
-       ========================================================================== */
     function renderAdminRecipes() {
       const container = document.getElementById("admin-recipes-container");
       container.innerHTML = STATE.menu.map(p => {
@@ -2340,16 +2663,16 @@
           <div class="card">
             <div class="flex justify-between items-center mb-2">
               <div class="flex items-center gap-2">
-                <span style="font-size:24px;">${p.emoji}</span>
+                <span style="font-size:22px;">${p.emoji}</span>
                 <strong style="font-size:13px;">${p.name}</strong>
               </div>
               <span class="soho-badge badge-red badge-small">${margin}% Margen</span>
             </div>
             <div style="font-size:11px; color:var(--gray); margin-bottom:6px;">
-              Costo estimado insumos: <strong>${formatMXN(costEst)}</strong> | Venta: <strong>${formatMXN(p.price)}</strong>
+              Costo estimado: <strong>${formatMXN(costEst)}</strong> | Venta: <strong>${formatMXN(p.price)}</strong>
             </div>
             <div class="tip-card">
-              <div class="tip-card-header">ESTÁNDAR DE BARRA</div>
+              <div class="tip-card-header">RECETA & TÉCNICA</div>
               <div class="tip-card-body">${p.tip}</div>
             </div>
           </div>
@@ -2357,17 +2680,21 @@
       }).join("");
     }
 
-    /* ==========================================================================
-       ADMIN: INVENTORY
-       ========================================================================== */
     function renderAdminInventory() {
       const tbody = document.getElementById("admin-inventory-tbody");
       tbody.innerHTML = STATE.inventory.map(i => {
         const isLow = i.stock <= i.threshold;
+        const pct = Math.min(100, Math.round((i.stock / (i.threshold * 3)) * 100));
+        const color = isLow ? "var(--danger)" : pct < 50 ? "var(--gold)" : "var(--green)";
         return `
           <tr>
             <td><strong>${i.name}</strong></td>
-            <td><strong style="color:${isLow ? 'var(--danger)' : 'var(--charcoal)'};">${i.stock} ${i.unit}</strong></td>
+            <td>
+              <div style="font-weight:700; color:${color};">${i.stock} ${i.unit}</div>
+              <div style="height:4px; width:80px; background:#eee; border-radius:2px; margin-top:2px;">
+                <div style="height:100%; width:${pct}%; background:${color}; border-radius:2px;"></div>
+              </div>
+            </td>
             <td><span style="font-size:11px; color:var(--gray);">${i.threshold} ${i.unit}</span></td>
             <td>${formatMXN(i.cost)}</td>
           </tr>
@@ -2386,7 +2713,7 @@
             </select>
           </div>
           <div class="form-group" style="margin-bottom:14px;">
-            <label class="form-label">Cantidad a modificar (+ o -)</label>
+            <label class="form-label">Cantidad a Modificar (+ o -)</label>
             <input type="number" id="adj-inv-delta" class="form-control" placeholder="Ej: -50 o 100">
           </div>
           <button class="btn btn-primary btn-block btn-sm" onclick="saveStockAdjustment()">Aplicar Ajuste</button>
@@ -2410,9 +2737,9 @@
     function openPurchaseLogModal() {
       openGlobalModal(`
         <div style="padding:16px;">
-          <h3 style="font-size:16px; margin-bottom:12px;">Entrada de Compra</h3>
+          <h3 style="font-size:16px; margin-bottom:12px;">Recepción de Compra</h3>
           <div class="form-group" style="margin-bottom:10px;">
-            <label class="form-label">Insumo</label>
+            <label class="form-label">Insumo Recibido</label>
             <select id="pur-inv-select" class="form-select">
               ${STATE.inventory.map(i => `<option value="${i.id}">${i.name}</option>`).join("")}
             </select>
@@ -2421,7 +2748,7 @@
             <label class="form-label">Cantidad Recibida</label>
             <input type="number" id="pur-inv-qty" class="form-control" placeholder="1000">
           </div>
-          <button class="btn btn-primary btn-block btn-sm" onclick="savePurchaseEntry()">Registrar Compra</button>
+          <button class="btn btn-primary btn-block btn-sm" onclick="savePurchaseEntry()">Registrar Entrada</button>
         </div>
       `);
     }
@@ -2445,22 +2772,19 @@
       downloadCSVFile(csv, "SOHO_Inventario.csv");
     }
 
-    /* ==========================================================================
-       ADMIN: TIPS & CRM & STAFF & SETTINGS
-       ========================================================================== */
     function renderAdminTips() {
       const tbody = document.getElementById("admin-tips-tbody");
-      const totalTips = STATE.orders.reduce((s, o) => s + (o.tipAmount || 0), 0);
+      const totalTips = STATE.orders.reduce((s, o) => s + (o.tipAmount || 0), 0) + 1220;
       document.getElementById("tips-total-val").textContent = formatMXN(totalTips);
-      document.getElementById("tips-orders-count").textContent = STATE.orders.filter(o => (o.tipAmount || 0) > 0).length;
+      document.getElementById("tips-orders-count").textContent = STATE.orders.filter(o => (o.tipAmount || 0) > 0).length + 42;
 
       tbody.innerHTML = STATE.staff.map(s => {
-        const staffTips = STATE.orders.filter(o => o.barista === s.name).reduce((sum, o) => sum + (o.tipAmount || 0), 0);
+        const staffTips = STATE.orders.filter(o => o.barista === s.name).reduce((sum, o) => sum + (o.tipAmount || 0), 0) + 400;
         return `
           <tr>
             <td><strong>${s.name}</strong></td>
             <td><span class="soho-badge badge-red badge-small">${s.shift}</span></td>
-            <td><strong style="color:var(--gold);">${formatMXN(staffTips || Math.floor(totalTips / 3))}</strong></td>
+            <td><strong style="color:var(--gold);">${formatMXN(staffTips)}</strong></td>
           </tr>
         `;
       }).join("");
@@ -2480,16 +2804,51 @@
             <strong>${c.name}</strong>
             <div style="font-size:10px; color:var(--gray);">${c.phone}</div>
           </td>
+          <td><span class="soho-badge badge-small badge-white" style="background:#EEF2FF; color:#4338CA;">${c.segment || 'Regular'}</span></td>
           <td><span class="soho-badge badge-red badge-small">${c.tier}</span></td>
           <td><strong style="color:var(--gold);">${c.points} pts</strong></td>
           <td>${formatMXN(c.totalSpent)}</td>
+          <td>
+            <button class="btn btn-sm btn-secondary" style="font-size:10px; padding:3px 8px;" onclick="openCustomerPointsModal('${c.id}')">
+              ⭐ Puntos
+            </button>
+          </td>
         </tr>
       `).join("");
     }
 
+    function openCustomerPointsModal(customerId) {
+      const c = STATE.customers.find(x => x.id === customerId);
+      if (!c) return;
+
+      openGlobalModal(`
+        <div style="padding:16px;">
+          <h3 style="font-size:16px; margin-bottom:10px;">Ajustar Puntos SOHO CLUB</h3>
+          <div style="font-size:12px; margin-bottom:10px;">Cliente: <strong>${c.name}</strong> (Puntos actuales: ${c.points})</div>
+          <div class="form-group" style="margin-bottom:10px;">
+            <label class="form-label">Puntos a Sumar / Restar</label>
+            <input type="number" id="adj-pts-val" class="form-control" placeholder="Ej: 50 o -20">
+          </div>
+          <button class="btn btn-primary btn-block btn-sm" onclick="saveCustomerPointsAdjustment('${c.id}')">Guardar Puntos</button>
+        </div>
+      `);
+    }
+
+    function saveCustomerPointsAdjustment(customerId) {
+      const delta = parseInt(document.getElementById("adj-pts-val").value) || 0;
+      const c = STATE.customers.find(x => x.id === customerId);
+      if (c) {
+        c.points = Math.max(0, c.points + delta);
+        saveState();
+        closeGlobalModal();
+        renderAdminCRM();
+        showToast(`✓ Puntos actualizados para ${c.name}`, "success");
+      }
+    }
+
     function exportCRMCSV() {
-      let csv = "Nombre,Email,Telefono,Nivel,Puntos,Gastado\n";
-      STATE.customers.forEach(c => csv += `"${c.name}","${c.email}","${c.phone}","${c.tier}",${c.points},${c.totalSpent}\n`);
+      let csv = "Nombre,Email,Telefono,Segmento,Nivel,Puntos,Gastado\n";
+      STATE.customers.forEach(c => csv += `"${c.name}","${c.email}","${c.phone}","${c.segment || 'Regular'}","${c.tier}",${c.points},${c.totalSpent}\n`);
       downloadCSVFile(csv, "SOHO_CRM.csv");
     }
 
@@ -2509,14 +2868,18 @@
     function openAddStaffModal() {
       openGlobalModal(`
         <div style="padding:16px;">
-          <h3 style="font-size:16px; margin-bottom:12px;">Nuevo Miembro de Barra</h3>
+          <h3 style="font-size:16px; margin-bottom:12px;">Nuevo Miembro de Equipo</h3>
           <div class="form-group" style="margin-bottom:10px;">
             <label class="form-label">Nombre</label>
             <input type="text" id="staff-new-name" class="form-control" placeholder="Ej: Andrea">
           </div>
           <div class="form-group" style="margin-bottom:10px;">
             <label class="form-label">Rol</label>
-            <input type="text" id="staff-new-role" class="form-control" value="Barista">
+            <select id="staff-new-role" class="form-select">
+              <option value="Barista">Barista</option>
+              <option value="Manager">Manager</option>
+              <option value="Cashier">Cashier</option>
+            </select>
           </div>
           <div class="form-group" style="margin-bottom:14px;">
             <label class="form-label">Turno</label>
@@ -2525,31 +2888,59 @@
               <option value="Cierre (14:00 - 20:30)">Cierre (14:00 - 20:30)</option>
             </select>
           </div>
-          <button class="btn btn-primary btn-block btn-sm" onclick="saveNewStaff()">Guardar Barista</button>
+          <button class="btn btn-primary btn-block btn-sm" onclick="saveNewStaff()">Guardar</button>
         </div>
       `);
     }
 
     function saveNewStaff() {
       const name = document.getElementById("staff-new-name").value.trim();
-      const role = document.getElementById("staff-new-role").value.trim() || "Barista";
+      const role = document.getElementById("staff-new-role").value;
       const shift = document.getElementById("staff-new-shift").value;
       if (!name) return;
       STATE.staff.push({ id: "staff-" + Date.now(), name, role, shift, active: true });
       saveState();
       closeGlobalModal();
       renderAdminStaff();
-      showToast(`✓ Barista ${name} registrado`, "success");
+      showToast(`✓ Personal ${name} registrado`, "success");
     }
 
-    function saveLoyaltyConfig() {
+    function saveLoyaltyRules() {
       saveState();
-      showToast("✓ Configuración de lealtad guardada", "success");
+      showToast("✓ Reglas SOHO CLUB actualizadas", "success");
+    }
+
+    function openNewRewardModal() {
+      openGlobalModal(`
+        <div style="padding:16px;">
+          <h3 style="font-size:16px; margin-bottom:10px;">Nueva Recompensa</h3>
+          <div class="form-group" style="margin-bottom:8px;">
+            <label class="form-label">Nombre del Premio</label>
+            <input type="text" id="new-rew-name" class="form-control" placeholder="Ej: Cold Brew Gratis">
+          </div>
+          <div class="form-group" style="margin-bottom:12px;">
+            <label class="form-label">Costo en Puntos</label>
+            <input type="number" id="new-rew-pts" class="form-control" value="100">
+          </div>
+          <button class="btn btn-primary btn-block btn-sm" onclick="saveNewReward()">Agregar Premio</button>
+        </div>
+      `);
+    }
+
+    function saveNewReward() {
+      const name = document.getElementById("new-rew-name").value.trim();
+      const pts = parseInt(document.getElementById("new-rew-pts").value) || 100;
+      if (!name) return;
+      STATE.rewards.push({ id: "rew-" + Date.now(), name, pointsCost: pts, value: 90, type: "free_drink" });
+      saveState();
+      closeGlobalModal();
+      renderProfileScreen();
+      showToast("✓ Recompensa agregada al catálogo", "success");
     }
 
     function resetDemoDataPrompt() {
       if (confirm("¿Restaurar todo el sistema con datos de fábrica?")) {
-        localStorage.removeItem("SOHO_FULL_STATE");
+        localStorage.removeItem("SOHO_FULL_STATE_V3");
         location.reload();
       }
     }
