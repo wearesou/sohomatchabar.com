@@ -166,7 +166,7 @@
       }
     }
 
-    /* HQ DESKTOP / EXPANDED LAYOUT */
+    /* HQ DESKTOP LAYOUT */
     .hq-desktop-frame {
       width: 100%;
       max-width: 1360px;
@@ -223,7 +223,7 @@
       width: 100%;
       border: 1.5px solid var(--grayBorder);
       border-radius: 12px;
-      padding: 10px 14px;
+      padding: 12px 14px;
       font-size: 13px;
       color: var(--charcoal);
       background: var(--white);
@@ -233,7 +233,6 @@
     }
     .input-box:focus { border-color: var(--red); }
 
-    /* CARD BOX */
     .card-box {
       background: var(--white);
       border-radius: 16px;
@@ -266,16 +265,6 @@
       border-radius: 50%;
       background: radial-gradient(circle, rgba(212, 160, 23, 0.2) 0%, rgba(212, 160, 23, 0) 70%);
       pointer-events: none;
-    }
-
-    /* PASS TIERS */
-    .soho-card-pass.tier-insider {
-      border: 1px solid rgba(212, 160, 23, 0.35);
-    }
-    .soho-card-pass.tier-icon {
-      background: linear-gradient(145deg, #0A0A0A 0%, #1F1F1F 50%, #000000 100%);
-      border: 1.5px solid #E5C07B;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.6), inset 0 0 15px rgba(229, 192, 123, 0.2);
     }
 
     .pass-header {
@@ -379,7 +368,6 @@
       gap: 8px;
       cursor: pointer;
       width: 100%;
-      transition: transform 0.1s;
     }
     .btn-wallet-google {
       background: #FFFFFF;
@@ -395,7 +383,6 @@
       gap: 8px;
       cursor: pointer;
       width: 100%;
-      transition: transform 0.1s;
     }
 
     /* MODALS */
@@ -503,7 +490,7 @@
 
           <div class="card-box">
             <div style="font-size: 11px; font-weight: 800; color: var(--gray); letter-spacing: 1px;">SOHO CARDS</div>
-            <div style="font-size: 32px; font-weight: 900; color: var(--charcoal); margin-top: 4px;">1,284</div>
+            <div style="font-size: 32px; font-weight: 900; color: var(--charcoal); margin-top: 4px;" id="hq-cardholders-count">1,284</div>
             <div style="font-size: 11px; color: var(--gold); margin-top: 4px; font-weight: 700;">★ 84% Apple/Google Wallet</div>
           </div>
 
@@ -596,91 +583,15 @@
                 </div>
               </div>
             </div>
-
-            <div class="card-box" style="background: #FFFDF7; border-color: #FDE68A;">
-              <h3 style="font-size: 15px; font-weight: 900; color: #92400E; margin-bottom: 8px;">⚠️ ALERTA INSUMOS</h3>
-              <div style="font-size: 12px; color: #78350F; line-height: 1.6;">
-                • <strong>Strawberry Coulis:</strong> 3 L restantes (🟡 Low)<br>
-                • <strong>Vasos 16oz:</strong> 120 pzas restantes (🔴 Critical)<br>
-                • <strong>Oatly Barista:</strong> 6 L restantes (🟡 Low)
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HQ TAB 2: INVENTORY -->
-      <div id="hq-tab-inventory" class="hq-subview" style="display:none;">
-        <div class="card-box">
-          <h3 style="font-size: 15px; font-weight: 900; margin-bottom: 14px;">NIVELES DE INSUMOS SOHO</h3>
-          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-            <thead>
-              <tr style="border-bottom: 2px solid var(--grayBorder); text-align: left; color: var(--gray);">
-                <th style="padding: 8px;">Insumo</th>
-                <th style="padding: 8px;">Stock</th>
-                <th style="padding: 8px;">Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid var(--grayBorder);">
-                <td style="padding: 10px 8px; font-weight: 800;">🍵 Matcha Uji Ceremonial</td>
-                <td style="padding: 10px 8px; font-weight: 900;">12 kg</td>
-                <td style="padding: 10px 8px;"><span class="badge badge-green">🟢 Good</span></td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--grayBorder);">
-                <td style="padding: 10px 8px; font-weight: 800;">🥛 Leche Entera / Deslac</td>
-                <td style="padding: 10px 8px; font-weight: 900;">24 L</td>
-                <td style="padding: 10px 8px;"><span class="badge badge-green">🟢 Good</span></td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--grayBorder);">
-                <td style="padding: 10px 8px; font-weight: 800;">🍓 Strawberry Coulis</td>
-                <td style="padding: 10px 8px; font-weight: 900; color: #92400E;">3 L</td>
-                <td style="padding: 10px 8px;"><span class="badge badge-yellow">🟡 Low</span></td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--grayBorder);">
-                <td style="padding: 10px 8px; font-weight: 800;">🥤 Vasos 16oz</td>
-                <td style="padding: 10px 8px; font-weight: 900; color: var(--danger);">120 pzas</td>
-                <td style="padding: 10px 8px;"><span class="badge badge-danger">🔴 Critical</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- HQ TAB 3: BARISTAS -->
-      <div id="hq-tab-baristas" class="hq-subview" style="display:none;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
-          <div class="card-box">
-            <h3 style="font-size: 16px; font-weight: 900;">Daniel Medina</h3>
-            <div style="font-size: 11px; color: var(--gray);">Head Barista · Desde Mar 2026</div>
-            <div style="margin-top: 12px; font-size: 12px;">Turnos comp: <strong>84</strong> | Training: <strong>92%</strong></div>
-          </div>
-          <div class="card-box">
-            <h3 style="font-size: 16px; font-weight: 900;">Sofía Ramos</h3>
-            <div style="font-size: 11px; color: var(--gray);">Barista · Desde Abr 2026</div>
-            <div style="margin-top: 12px; font-size: 12px;">Turnos comp: <strong>62</strong> | Training: <strong>85%</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HQ TAB 4: SHIFTS -->
-      <div id="hq-tab-shifts" class="hq-subview" style="display:none;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;">
-          <div class="card-box">
-            <strong style="color: var(--red);">LUNES</strong>
-            <div style="font-size: 12px; margin-top: 4px;">9–3: Daniel | 3–9: Sofía</div>
-          </div>
-          <div class="card-box">
-            <strong style="color: var(--red);">VIERNES (HOY)</strong>
-            <div style="font-size: 12px; margin-top: 4px;">9–3: Daniel (Barra) | 3–9: Sofía</div>
           </div>
         </div>
       </div>
 
       <!-- HQ TAB 5: CUSTOMERS & CARDS -->
       <div id="hq-tab-customers" class="hq-subview" style="display:none;">
-        <div class="card-box">
-          <div style="display: flex; gap: 20px; align-items: center; background: var(--cream); padding: 16px; border-radius: 12px;">
+        <div class="card-box" id="hq-customers-roster-container">
+          <!-- Member 1 -->
+          <div style="display: flex; gap: 20px; align-items: center; background: var(--cream); padding: 16px; border-radius: 12px; margin-bottom: 12px;">
             <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--matchaDeep); color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900;">AG</div>
             <div style="flex: 1;">
               <div style="display: flex; justify-content: space-between;">
@@ -693,28 +604,6 @@
                 <span>Streak: <strong style="color: var(--red);">🔥 7 Days</strong></span>
                 <span>Apple Wallet: <strong>🟢 Conectado</strong></span>
               </div>
-            </div>
-            <button class="btn-action" style="padding: 8px 14px; font-size: 12px;" onclick="alert('Tarjeta SOHO Card de Ana García actualizada.')">Actualizar Pase</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- HQ TAB 6: LOYALTY -->
-      <div id="hq-tab-loyalty" class="hq-subview" style="display:none;">
-        <div class="card-box">
-          <h3 style="font-size: 16px; font-weight: 900; margin-bottom: 12px;">NIVELES DE SOHO CARD</h3>
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; font-size: 12px;">
-            <div style="background: var(--cream); padding: 10px; border-radius: 8px;">
-              <strong>SOHO MEMBER</strong><br>0 – 999 pts
-            </div>
-            <div style="background: var(--matchaPale); padding: 10px; border-radius: 8px;">
-              <strong>SOHO REGULAR</strong><br>1,000 – 2,499 pts
-            </div>
-            <div style="background: var(--goldLight); padding: 10px; border-radius: 8px; border: 1px solid var(--gold);">
-              <strong>SOHO INSIDER</strong><br>2,500 – 4,999 pts
-            </div>
-            <div style="background: #111; color: #FFF; padding: 10px; border-radius: 8px;">
-              <strong style="color: #F3C644;">SOHO ICON</strong><br>5,000+ pts
             </div>
           </div>
         </div>
@@ -739,100 +628,31 @@
           <h2 style="font-size: 22px; font-weight: 900; margin-top: 4px;">GOOD MORNING, DANIEL.</h2>
           <div style="font-size: 12px; opacity: 0.85; margin-top: 2px;">Shift: <strong>9:00 AM — 3:00 PM</strong> · 📍 SOHO Barra Principal</div>
           
-          <!-- Scanner Launcher Button -->
           <button class="btn-action" style="background: var(--white); color: var(--matchaDeep); width: 100%; margin-top: 12px; font-size: 13px;" onclick="openCrewScannerModal()">
             📷 SCAN SOHO CARD (QR)
           </button>
         </div>
 
-        <!-- Barista Sub-Navigation -->
-        <div style="background: var(--white); display: flex; border-bottom: 1px solid var(--grayBorder);">
-          <button id="crew-tab-orders" class="portal-pill-btn active barista-pill" style="flex: 1; border-radius: 0; justify-content: center; padding: 10px 0;" onclick="switchCrewTab('orders')">🧾 Pedidos</button>
-          <button id="crew-tab-scanner" class="portal-pill-btn" style="flex: 1; border-radius: 0; justify-content: center; color: var(--gray); padding: 10px 0;" onclick="switchCrewTab('scanner')">📷 Scanner</button>
-          <button id="crew-tab-checklist" class="portal-pill-btn" style="flex: 1; border-radius: 0; justify-content: center; color: var(--gray); padding: 10px 0;" onclick="switchCrewTab('checklist')">🧹 Checklist</button>
-          <button id="crew-tab-academy" class="portal-pill-btn" style="flex: 1; border-radius: 0; justify-content: center; color: var(--gray); padding: 10px 0;" onclick="switchCrewTab('academy')">📚 Academy</button>
-        </div>
-
         <!-- Content Area -->
         <div style="padding: 14px; flex: 1; overflow-y: auto;">
-          
-          <!-- TAB 1: ORDERS -->
-          <div id="crew-subview-orders">
-            <div class="card-box" style="border-left: 4px solid var(--red); margin-bottom: 10px;">
-              <div style="display: flex; justify-content: space-between;">
-                <span style="font-weight: 900; font-size: 15px;">ORDER #1024</span>
-                <span class="badge badge-yellow">PREPARING</span>
-              </div>
-              <div style="margin-top: 8px; font-size: 13px; font-weight: 800;">🍓 Strawberry Matcha 16oz</div>
-              <div style="font-size: 12px; color: var(--gray);">Oat Milk · 50% Sweet · Less Ice · Ana García</div>
-              <button class="btn-action btn-matcha" style="width: 100%; margin-top: 10px; padding: 8px; font-size: 12px;" onclick="this.textContent='LISTO ✓'; this.style.background='var(--green)';">
-                MARCAR LISTO ✓
-              </button>
+          <div class="card-box" style="border-left: 4px solid var(--red); margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="font-weight: 900; font-size: 15px;">ORDER #1024</span>
+              <span class="badge badge-yellow">PREPARING</span>
             </div>
+            <div style="margin-top: 8px; font-size: 13px; font-weight: 800;">🍓 Strawberry Matcha 16oz</div>
+            <div style="font-size: 12px; color: var(--gray);">Oat Milk · 50% Sweet · Less Ice · Ana García</div>
+            <button class="btn-action btn-matcha" style="width: 100%; margin-top: 10px; padding: 8px; font-size: 12px;" onclick="this.textContent='LISTO ✓'; this.style.background='var(--green)';">
+              MARCAR LISTO ✓
+            </button>
           </div>
-
-          <!-- TAB 2: LIVE CARD SCANNER -->
-          <div id="crew-subview-scanner" style="display:none;">
-            <div class="card-box" style="text-align: center; border: 2px dashed var(--matcha);">
-              <div style="font-size: 40px;">📷</div>
-              <h3 style="font-size: 16px; font-weight: 900; margin-top: 6px;">ESCÁNER DE SOHO CARD</h3>
-              <p style="font-size: 12px; color: var(--gray); margin-top: 4px;">Apunta al código QR o Barcode del cliente en su Apple/Google Wallet.</p>
-
-              <button class="btn-action btn-matcha" style="margin-top: 14px; width: 100%;" onclick="simulateScanMemberCard()">
-                ⚡ SIMULAR ESCANEO (Ana García)
-              </button>
-            </div>
-
-            <!-- Scanned Member Result Box -->
-            <div id="scanned-member-result" style="display:none; margin-top: 14px;">
-              <div class="card-box" style="background: var(--cream); border: 2px solid var(--gold);">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                  <div>
-                    <span class="badge badge-gold">SOHO INSIDER</span>
-                    <h3 style="font-size: 18px; font-weight: 900; margin-top: 4px;">ANA GARCÍA</h3>
-                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gray);">ID: SOHO-004821</div>
-                  </div>
-                  <div style="text-align: right;">
-                    <div style="font-size: 18px; font-weight: 900; color: var(--gold);">2,840 pts</div>
-                    <div style="font-size: 11px; color: var(--red); font-weight: 800;">🔥 7 DAY STREAK</div>
-                  </div>
-                </div>
-
-                <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--grayBorder); display: flex; flex-direction: column; gap: 6px;">
-                  <button class="btn-action" style="width: 100%; font-size: 12px; padding: 10px;" onclick="applyScannedPurchase(110)">
-                    + REGISTRAR COMPRA Y PUNTOS (+110 pts)
-                  </button>
-                  <button class="btn-action btn-matcha" style="width: 100%; font-size: 12px; padding: 10px;" onclick="alert('🎁 Recompensa Free Matcha aplicada con éxito.')">
-                    🎁 APLICAR RECOMPENSA (Free Matcha)
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 3: CHECKLIST -->
-          <div id="crew-subview-checklist" style="display:none;">
-            <div class="card-box">
-              <strong style="font-size: 13px;">OPENING CHECKLIST (6/6 COMPLETE)</strong>
-              <div style="font-size: 12px; margin-top: 6px;">✓ Máquinas calibradas · ✓ Matcha batido · ✓ Leches listas</div>
-            </div>
-          </div>
-
-          <!-- TAB 4: ACADEMY -->
-          <div id="crew-subview-academy" style="display:none;">
-            <div class="card-box">
-              <strong style="font-size: 13px;">SOHO ACADEMY</strong>
-              <div style="font-size: 12px; margin-top: 6px;">✓ Matcha 101 · ✓ Drink Recipes · ✍️ Customer Experience</div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
   </main>
 
   <!-- ==========================================================================
-       💚 03. CLIENTE PORTAL (SOHO MEMBERS — TU MATCHA CLUB & SOHO CARD)
+       💚 03. CLIENTE PORTAL (SOHO MEMBERS — TU MATCHA CLUB & REGISTRO)
        ========================================================================== -->
   <main id="portal-client" class="portal-view">
     <div class="phone-shell-container">
@@ -842,10 +662,16 @@
         <div style="background: linear-gradient(150deg, var(--redDeep) 0%, var(--red) 100%); padding: 24px 20px 18px; color: white;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 11px; font-weight: 800; letter-spacing: 2px; opacity: 0.8;">SOHO MATCHA CLUB</span>
-            <span class="badge badge-gold" style="background: var(--white); color: var(--red); font-size: 10px;">⭐ SOHO INSIDER</span>
+            <span class="badge badge-gold" style="background: var(--white); color: var(--red); font-size: 10px;" id="client-tier-badge">⭐ SOHO INSIDER</span>
           </div>
 
-          <h1 style="font-size: 26px; font-weight: 900; line-height: 1.1; margin-top: 6px;">HEY, ANA 👋</h1>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+            <h1 style="font-size: 26px; font-weight: 900; line-height: 1.1;" id="client-greeting-name">HEY, ANA 👋</h1>
+            <!-- Switch Account / Create Account Button -->
+            <button onclick="openRegistrationModal()" style="background: rgba(255,255,255,0.2); border: none; border-radius: 20px; padding: 5px 12px; color: var(--white); font-size: 11px; font-weight: 700; cursor: pointer;">
+              + Crear Cuenta
+            </button>
+          </div>
         </div>
 
         <!-- Client Sub Navigation Tabs -->
@@ -866,11 +692,11 @@
             <div class="soho-card-pass tier-insider" id="client-digital-pass">
               <div class="pass-header">
                 <span class="pass-brand-title">🍵 SOHO MATCHA BAR</span>
-                <span class="pass-tier-chip">SOHO INSIDER</span>
+                <span class="pass-tier-chip" id="pass-tier-label">SOHO INSIDER</span>
               </div>
 
-              <div class="pass-member-name">ANA GARCÍA</div>
-              <div class="pass-member-id">SOHO-004821</div>
+              <div class="pass-member-name" id="pass-name-label">ANA GARCÍA</div>
+              <div class="pass-member-id" id="pass-id-label">SOHO-004821</div>
 
               <div class="pass-stats-grid">
                 <div>
@@ -887,7 +713,7 @@
               <div style="margin-top: 14px;">
                 <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.85; margin-bottom: 4px;">
                   <span>NEXT REWARD</span>
-                  <span>160 pts away</span>
+                  <span id="pass-next-reward-label">160 pts away</span>
                 </div>
                 <div style="height: 6px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
                   <div style="height: 100%; width: 84%; background: #F3C644; border-radius: 4px;"></div>
@@ -900,7 +726,7 @@
                   🍵
                 </div>
                 <div class="fake-barcode-lines"></div>
-                <div style="font-family: var(--font-mono); font-size: 11px; color: #555; margin-top: 4px; letter-spacing: 2px;">
+                <div style="font-family: var(--font-mono); font-size: 11px; color: #555; margin-top: 4px; letter-spacing: 2px;" id="pass-barcode-text">
                   *SOHO-004821-ANA*
                 </div>
               </div>
@@ -933,29 +759,17 @@
                 <button class="btn-action" style="padding: 6px 14px; font-size: 11px;" onclick="switchMemberTab('menu')">ORDER AGAIN</button>
               </div>
             </div>
-
-            <div class="card-box">
-              <strong style="font-size: 13px;">🔥 4 DAYS MATCHA STREAK</strong>
-              <p style="font-size: 11px; color: var(--gray); margin-top: 2px;">Visita SOHO 3 veces más esta semana para desbloquear 200 pts bonus.</p>
-            </div>
           </div>
 
           <!-- MEMBER TAB 3: MENU -->
           <div id="member-subview-menu" style="display:none;">
             <div style="display: flex; flex-direction: column; gap: 10px;">
-              <div class="card-box" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="alert('Personalizador abierto')">
+              <div class="card-box" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
                 <div>
                   <strong>🍓 Strawberry Matcha</strong>
                   <div style="font-size: 11px; color: var(--gray);">Coulis de fresa artesanal + ceremonial</div>
                 </div>
                 <strong style="color: var(--red);">$110</strong>
-              </div>
-              <div class="card-box" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="alert('Personalizador abierto')">
-                <div>
-                  <strong>🍵 Classic Matcha</strong>
-                  <div style="font-size: 11px; color: var(--gray);">Uji ceremonial puro</div>
-                </div>
-                <strong style="color: var(--red);">$85</strong>
               </div>
             </div>
           </div>
@@ -977,8 +791,72 @@
   </main>
 
   <!-- ==========================================================================
-       WALLET PASS MODAL (APPLE & GOOGLE PASS SIMULATOR)
+       MODAL 1: CREAR CUENTA SOHO (ONBOARDING FLUJO COMPLETO)
        ========================================================================== -->
+  <div id="modal-registration" class="modal-backdrop">
+    <div class="modal-card">
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div style="font-size: 40px; margin-bottom: 4px;">🍵</div>
+        <h2 style="font-size: 22px; font-weight: 900; color: var(--charcoal);">ÚNETE A SOHO CLUB</h2>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 2px;">
+          Obtén tu SOHO Card digital en Apple/Google Wallet y <strong>+100 pts de bienvenida</strong>.
+        </p>
+      </div>
+
+      <!-- Quick Social 1-Tap Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+        <button onclick="registerWithSocial('Apple')" style="background: #000; color: #FFF; border: none; border-radius: 12px; padding: 12px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span></span> <span>Continuar con Apple</span>
+        </button>
+        <button onclick="registerWithSocial('Google')" style="background: #FFF; color: #333; border: 1.5px solid var(--grayBorder); border-radius: 12px; padding: 12px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span>G</span> <span>Continuar con Google</span>
+        </button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+        <div style="flex: 1; height: 1px; background: var(--grayBorder);"></div>
+        <span style="font-size: 11px; color: var(--gray); font-weight: 700;">O CON TU NÚMERO</span>
+        <div style="flex: 1; height: 1px; background: var(--grayBorder);"></div>
+      </div>
+
+      <!-- Step 1 Form: Name + Phone -->
+      <div id="reg-step-1">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div>
+            <label style="font-size: 11px; font-weight: 800; color: var(--gray);">TU NOMBRE COMPLETO</label>
+            <input type="text" id="reg-input-name" placeholder="Ej: Mariana López" class="input-box" style="margin-top: 4px;">
+          </div>
+          <div>
+            <label style="font-size: 11px; font-weight: 800; color: var(--gray);">NÚMERO CELULAR (+52)</label>
+            <input type="tel" id="reg-input-phone" placeholder="55 1234 5678" class="input-box" style="margin-top: 4px;">
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 18px;">
+          <button class="btn-action btn-outline" style="flex: 1;" onclick="closeModals()">Cancelar</button>
+          <button class="btn-action" style="flex: 1;" onclick="goToSmsVerificationStep()">ENVIAR CÓDIGO SMS →</button>
+        </div>
+      </div>
+
+      <!-- Step 2 Form: SMS Code Verification -->
+      <div id="reg-step-2" style="display:none; text-align: center;">
+        <div style="background: var(--redPale); border: 1px solid var(--redMid); border-radius: 12px; padding: 12px; margin-bottom: 14px; font-size: 12px; color: var(--red); font-weight: 700;">
+          📲 Te enviamos un SMS con tu código de 4 dígitos.
+        </div>
+
+        <label style="font-size: 11px; font-weight: 800; color: var(--gray);">CÓDIGO DE 4 DÍGITOS</label>
+        <input type="text" id="reg-input-otp" value="8888" maxlength="4" class="input-box" style="text-align: center; font-size: 24px; font-family: var(--font-mono); letter-spacing: 8px; margin-top: 6px;">
+
+        <div style="display: flex; gap: 10px; margin-top: 18px;">
+          <button class="btn-action btn-outline" style="flex: 1;" onclick="backToRegStep1()">Atrás</button>
+          <button class="btn-action" style="flex: 1;" onclick="completeAccountCreation()">CREAR MI SOHO CARD 🎉</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WALLET PASS MODAL (APPLE & GOOGLE PASS SIMULATOR) -->
   <div id="modal-wallet-pass" class="modal-backdrop">
     <div class="modal-card" style="text-align: center;">
       <div style="font-size: 40px;" id="wallet-modal-icon"></div>
@@ -991,12 +869,12 @@
         <div class="soho-card-pass tier-insider" style="text-align: left;">
           <div class="pass-header">
             <span class="pass-brand-title">SOHO MATCHA BAR</span>
-            <span class="pass-tier-chip">SOHO INSIDER</span>
+            <span class="pass-tier-chip" id="modal-pass-tier">SOHO INSIDER</span>
           </div>
-          <div class="pass-member-name">ANA GARCÍA</div>
-          <div class="pass-member-id">SOHO-004821</div>
+          <div class="pass-member-name" id="modal-pass-name">ANA GARCÍA</div>
+          <div class="pass-member-id" id="modal-pass-id">SOHO-004821</div>
           <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; margin-top: 12px;">
-            <span>🍵 2,840 PTS</span>
+            <span id="modal-pass-pts">🍵 2,840 PTS</span>
             <span style="color: #FF7675;">🔥 7 DAYS</span>
           </div>
         </div>
@@ -1044,7 +922,7 @@
       <input type="text" value="TODAY ONLY: 2X POINTS ON STRAWBERRY MATCHA 🍓" class="input-box" style="margin-bottom: 12px;">
       <div style="display: flex; gap: 10px;">
         <button class="btn-action btn-outline" style="flex: 1;" onclick="closeModals()">Cerrar</button>
-        <button class="btn-action" style="flex: 1;" onclick="alert('🚀 Notificación de Wallet enviada a 1,284 clientes.'); closeModals();">ENVIAR A WALLET</button>
+        <button class="btn-action" style="flex: 1;" onclick="alert('🚀 Notificación de Wallet enviada a los clientes.'); closeModals();">ENVIAR A WALLET</button>
       </div>
     </div>
   </div>
@@ -1083,24 +961,6 @@
       }
     }
 
-    // ── CREW BARISTA SUB-TABS ROUTING ──────────────────────────────────────
-    function switchCrewTab(tabId) {
-      ["orders", "scanner", "checklist", "academy"].forEach(t => {
-        const view = document.getElementById(`crew-subview-${t}`);
-        const btn = document.getElementById(`crew-tab-${t}`);
-        if (view) view.style.display = (t === tabId ? "block" : "none");
-        if (btn) {
-          if (t === tabId) {
-            btn.classList.add("active", "barista-pill");
-            btn.style.color = "var(--white)";
-          } else {
-            btn.classList.remove("active", "barista-pill");
-            btn.style.color = "var(--gray)";
-          }
-        }
-      });
-    }
-
     // ── MEMBERS CLIENT SUB-TABS ROUTING ────────────────────────────────────
     function switchMemberTab(tabId) {
       ["card", "home", "menu", "rewards"].forEach(t => {
@@ -1117,6 +977,64 @@
           }
         }
       });
+    }
+
+    // ── ACCOUNT CREATION / ONBOARDING ──────────────────────────────────────
+    function openRegistrationModal() {
+      document.getElementById("reg-step-1").style.display = "block";
+      document.getElementById("reg-step-2").style.display = "none";
+      document.getElementById("modal-registration").classList.add("open");
+    }
+
+    function goToSmsVerificationStep() {
+      const name = document.getElementById("reg-input-name").value.trim();
+      const phone = document.getElementById("reg-input-phone").value.trim();
+      if (!name) { alert("Por favor escribe tu nombre."); return; }
+      if (!phone) { alert("Por favor ingresa tu número celular."); return; }
+      document.getElementById("reg-step-1").style.display = "none";
+      document.getElementById("reg-step-2").style.display = "block";
+    }
+
+    function backToRegStep1() {
+      document.getElementById("reg-step-1").style.display = "block";
+      document.getElementById("reg-step-2").style.display = "none";
+    }
+
+    function completeAccountCreation() {
+      const name = document.getElementById("reg-input-name").value.trim() || "Mariana López";
+      const randomId = "SOHO-" + Math.floor(100000 + Math.random() * 900000);
+      
+      // Update Client UI with newly created user
+      document.getElementById("client-greeting-name").textContent = `HEY, ${name.split(' ')[0].toUpperCase()} 👋`;
+      document.getElementById("pass-name-label").textContent = name.toUpperCase();
+      document.getElementById("pass-id-label").textContent = randomId;
+      document.getElementById("pass-points-val").innerHTML = `100 <span style="font-size: 12px; font-weight: 600; opacity: 0.7;">pts</span>`;
+      document.getElementById("pass-streak-val").textContent = "🔥 1 DAY";
+      document.getElementById("pass-tier-label").textContent = "SOHO MEMBER";
+      document.getElementById("client-tier-badge").textContent = "⭐ SOHO MEMBER";
+      document.getElementById("pass-barcode-text").textContent = `*${randomId}-${name.split(' ')[0].toUpperCase()}*`;
+
+      // Update Modal pass
+      document.getElementById("modal-pass-name").textContent = name.toUpperCase();
+      document.getElementById("modal-pass-id").textContent = randomId;
+      document.getElementById("modal-pass-pts").textContent = "🍵 100 PTS";
+      document.getElementById("modal-pass-tier").textContent = "SOHO MEMBER";
+
+      // Update HQ count
+      const curCount = parseInt(document.getElementById("hq-cardholders-count").textContent.replace(",","")) || 1284;
+      document.getElementById("hq-cardholders-count").textContent = (curCount + 1).toLocaleString();
+
+      closeModals();
+      alert(`🎉 ¡Bienvenid@ a SOHO Club, ${name}! Se generó tu ID: ${randomId} y recibiste +100 pts de bienvenida.`);
+      openAppleWalletPassModal();
+    }
+
+    function registerWithSocial(provider) {
+      const names = ["Sofía Martínez", "Mateo Valdés", "Camila Ríos", "Santiago Cruz"];
+      const chosen = names[Math.floor(Math.random() * names.length)];
+      document.getElementById("reg-input-name").value = chosen;
+      document.getElementById("reg-input-phone").value = "55 9876 5432";
+      completeAccountCreation();
     }
 
     // ── SOHO CARD & WALLET INTERACTION ─────────────────────────────────────
@@ -1144,19 +1062,7 @@
 
     function processScannedCardManual() {
       closeModals();
-      switchCrewTab('scanner');
-      document.getElementById("scanned-member-result").style.display = "block";
-    }
-
-    function simulateScanMemberCard() {
-      document.getElementById("scanned-member-result").style.display = "block";
-    }
-
-    function applyScannedPurchase(pointsToAdd) {
-      let curPts = 2840 + pointsToAdd;
-      document.getElementById("pass-points-val").innerHTML = `${curPts.toLocaleString()} <span style="font-size: 12px; font-weight: 600; opacity: 0.7;">pts</span>`;
-      document.getElementById("pass-streak-val").textContent = "🔥 8 DAYS";
-      alert(`✅ Compra registrada. +${pointsToAdd} puntos sumados a Ana García. Racha actualizada a 8 DÍAS 🔥.`);
+      alert("✅ SOHO Card escaneada: Ana García (#004821). +110 pts agregados.");
     }
 
     // ── MODAL CONTROLS ─────────────────────────────────────────────────────
